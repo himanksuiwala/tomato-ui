@@ -27,12 +27,12 @@ const storeSlice = createSlice({
       return { ...state, storelist: payload };
     },
 
-    [fetchAsyncStores.rejected]:()=> {
+    [fetchAsyncStores.rejected]: () => {
       console.log("Errr");
     },
   },
 });
 
-export const getAllStore = (state) =>state.stores.storelist
+export const getAllStore = (state) => state.stores.storelist;
 
-export default storeSlice.reducer
+export default storeSlice.reducer;
