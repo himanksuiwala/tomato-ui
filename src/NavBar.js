@@ -17,7 +17,7 @@ const Nav = styled.nav`
   display: flex;
   .title{
       font-size:32px;
-      padding:10px 0px 15px 0px;
+      ${'' /* padding:10px 0px 15px 0px; */}
   }
   align-items: center;
   padding: 0 60px;
