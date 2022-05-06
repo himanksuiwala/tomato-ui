@@ -5,7 +5,7 @@ const NavBar = () => {
   return (
     <Nav>
       <div className="title">
-        <h1><i>Tomato🍅</i></h1>
+        <h1><i>Tomato</i>🍅</h1>
       </div>
     </Nav>
   );
@@ -14,6 +14,8 @@ const NavBar = () => {
 const Nav = styled.nav`
   height: 70px;
   background: #090b13;
+  ${'' /* background:transparent; */}
+
   display: flex;
   .title{
       font-size:32px;
