@@ -1,10 +1,17 @@
-import React from "react";
+import React,{useEffect} from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { fetchAsyncStores } from "./features/store/storeSlice";
+import RestContainer from "./RestContainer";
 <style>
   @import
   url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
 </style>;
 const Delivery = () => {
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(fetchAsyncStores())
+  },[])
   return (
     <>
       <Header>
@@ -22,6 +29,7 @@ const Delivery = () => {
               <h1>Found the following Restaurants in your Area</h1>
             </div>
           </BottomHeader>
+          <RestContainer />
         </ShadowContainer>
       </Container>
     </>
@@ -29,10 +37,10 @@ const Delivery = () => {
 };
 
 const ShadowContainer = styled.div`
-@media screen and (min-width: 601px){
+  @media screen and (min-width: 601px) {
     box-shadow: 0 3px 20px rgb(0 0 0 / 0.2);
-}
-`
+  }
+`;
 
 const BottomHeader = styled.div`
   h1 {
@@ -40,9 +48,8 @@ const BottomHeader = styled.div`
   }
   .bottom {
     margin: 5px 20px 0px 20px;
-    padding:7px
+    padding: 7px;
   }
-  
 `;
 
 const Container = styled.div`

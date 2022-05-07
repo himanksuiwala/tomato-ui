@@ -1,6 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// const initialState = {
+//   storesdata:[]
+// }
+
+// // const storeSlice = createSlice({
+// //   name:"stores",
+// //   initialState
+// // })
+
 export const fetchAsyncStores = createAsyncThunk(
   "stores/allStores",
   async () => {
@@ -10,7 +19,7 @@ export const fetchAsyncStores = createAsyncThunk(
 );
 
 const initialState = {
-  storelist: {},
+  storelist: [],
 };
 
 const storeSlice = createSlice({
