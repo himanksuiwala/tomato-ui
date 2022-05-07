@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllStore } from "./features/store/storeSlice";
+import { fetchAsyncStoreData, getAllStore } from "./features/store/storeSlice";
 import { Link } from "react-router-dom";
 <style>
   @import
   url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
 </style>;
 const StoreComponent = () => {
-  const [state, setState] = useState([]);
   const data = useSelector(getAllStore);
-  useEffect(() => {}, []);
   console.table(data);
   return (
     <Container>

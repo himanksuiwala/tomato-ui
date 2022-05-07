@@ -1,9 +1,21 @@
-import React from 'react'
-
+import React, { useEffect } from "react";
+// import _ from "underscore";
+import {
+  fetchAsyncStoreData,
+  getAllStore,
+  getStoreData,
+} from "./features/store/storeSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 const Restaurant = () => {
-  return (
-    <h1>Restaurant Route</h1>
-  )
-}
+  const dispatch = useDispatch();
+  const { id } = useParams();
 
-export default Restaurant
+  useEffect(() => {
+    dispatch(fetchAsyncStoreData(id));
+  }, []);
+  const data = useSelector(getStoreData);
+  return <h1>H</h1>;
+};
+
+export default Restaurant;
