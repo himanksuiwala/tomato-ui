@@ -30,7 +30,7 @@ export const fetchAsyncStoreMenu = createAsyncThunk(
 const initialState = {
   storelist: [],
   storedata: {},
-  storeMenu: {},
+  storeMenu: [],
 };
 
 const storeSlice = createSlice({

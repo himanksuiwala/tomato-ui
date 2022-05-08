@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import { MdRestaurantMenu } from "react-icons/md";
+
 import { getStoreMenu } from "./features/store/storeSlice";
 <style>
   @import
@@ -17,24 +19,48 @@ const MenuContainer = () => {
     <Container>
       <ContainerHeader>
         <div className="title">
-          <h1>Menu</h1>
+          <span>Menu</span>
+          <span className="logo">
+            <MdRestaurantMenu />
+          </span>
         </div>
       </ContainerHeader>
       <Menu>
         {data &&
           data.map((i) => {
             return (
-              <MenuItem key={i._id}>
-                <div className="item-title">
-                  <p>{i.name}</p>
-                </div>
-                {/* <div className="item-category">
+              <>
+                <MenuItem key={i._id}>
+                  <div>
+                    <div className="item-title">
+                      <p>{i.name}</p>
+                    </div>
+                    {/* <div className="item-category">
                   <p>{i.cuisine_category}</p>
                 </div> */}
-                <div className="item-description">
-                  <p>{i.description}</p>
-                </div>
-              </MenuItem>
+                    <div className="item-description">
+                      <p>{i.description}</p>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="price">
+                      <p>
+                        ₹ {""}
+                        {i.price}
+                      </p>
+                    </div>
+                    <div className="qty">
+                      <input type="text" defaultValue={1} />
+                    </div>
+                    <div className="cart">
+                      <button>
+                        <p>Add To Cart</p>{" "}
+                      </button>
+                    </div>
+                  </div>
+                </MenuItem>
+                <hr />
+              </>
             );
           })}
       </Menu>
@@ -42,14 +68,24 @@ const MenuContainer = () => {
   );
 };
 const MenuItem = styled.div`
-padding:15px 8px 15px 8px;
-.item-title{
-    font-size:22px;
-    font-weight:550;
-}
-.item-description{
-    margin-top:18px;
-}
+  .qty {
+    input {
+      width: 40px;
+    }
+  }
+  .cart {
+    padding: 2px 0px 2px 0px;
+  }
+  padding: 25px 8px 25px 8px;
+  display: flex;
+  justify-content: space-between;
+  .item-title {
+    font-size: 22px;
+    font-weight: 550;
+  }
+  .item-description {
+    margin-top: 20px;
+  }
 `;
 const ContainerHeader = styled.div``;
 const Menu = styled.div`
@@ -58,10 +94,17 @@ const Menu = styled.div`
 `;
 const Container = styled.div`
   margin-top: 50px;
-
+  margin-bottom: 100px;
   margin-left: 5px;
   font-family: "Inter", sans-serif;
   .title {
+    font-weight: 500;
+    font-size: 40px;
+  }
+  .logo {
+    span {
+      padding-top: 15px;
+    }
   }
 `;
 
