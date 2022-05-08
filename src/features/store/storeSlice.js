@@ -1,15 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-// const initialState = {
-//   storesdata:[]
-// }
-
-// // const storeSlice = createSlice({
-// //   name:"stores",
-// //   initialState
-// // })
-
 export const fetchAsyncStores = createAsyncThunk(
   "stores/allStores",
   async () => {
@@ -24,7 +14,13 @@ export const fetchAsyncStoreData = createAsyncThunk(
     return response.data;
   }
 );
-
+export const fetchAsyncStoreMenu = createAsyncThunk(
+  "store/menu",
+  async (id) => {
+    const response = await axios.get(`http://localhost:3001/storeMenu/${id}`);
+    return response.data;
+  }
+);
 // export const fetchAsyncStoreData = createAsyncThunk("store/data",
 //  async (id) => {
 //   const response = await axios.get(`http://localhost:3001/storedata/${id}`);
@@ -34,6 +30,7 @@ export const fetchAsyncStoreData = createAsyncThunk(
 const initialState = {
   storelist: [],
   storedata: {},
+  storeMenu: {},
 };
 
 const storeSlice = createSlice({
@@ -59,9 +56,17 @@ const storeSlice = createSlice({
     [fetchAsyncStoreData.rejected]: () => {
       console.log("Rejected");
     },
+    [fetchAsyncStoreMenu.fulfilled]: (state, { payload }) => {
+      console.log("Fetched MNU");
+      return { ...state, storeMenu: payload };
+    },
+    [fetchAsyncStoreMenu.rejected]: () => {
+      console.log("Error");
+    },
   },
 });
 
+export const getStoreMenu = (state)=>state.stores.storeMenu
 export const getAllStore = (state) => state.stores.storelist;
 export const getStoreData = (state) => state.stores.storedata;
 export default storeSlice.reducer;
