@@ -1,20 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { MdRestaurantMenu } from "react-icons/md";
-
 import { getStoreMenu } from "./features/store/storeSlice";
+import { addProduct } from "./features/store/cartSlice";
 <style>
   @import
   url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
 </style>;
 const MenuContainer = () => {
+  const [qty, setQty] = useState(1);
+  // const submitHandler = (e) => {
+  //   e.preventDefault();
+  //   console.log("G", qty);
+  //   setQty(1);
+  // };
+  const dispatch = useDispatch();
+  const submitHandler = (e, i) => {
+    dispatch(addProduct({ i, qty }));
+    setQty(1);
+    e.preventDefault();
+  };
   useEffect(() => {
     // dispatch(fetchAsyncStoreMenu(id));
   }, []);
   const data = useSelector(getStoreMenu);
-  console.table(data);
   return (
     <Container>
       <ContainerHeader>
@@ -24,6 +35,7 @@ const MenuContainer = () => {
             <MdRestaurantMenu />
           </span>
         </div>
+        {/* <hr/> */}
       </ContainerHeader>
       <Menu>
         {data &&
@@ -49,14 +61,26 @@ const MenuContainer = () => {
                         {i.price}
                       </p>
                     </div>
-                    <div className="qty">
-                      <input type="text" defaultValue={1} />
-                    </div>
-                    <div className="cart">
-                      <button>
-                        <p>Add To Cart</p>{" "}
-                      </button>
-                    </div>
+                    {/* <form className="form" onSubmit={submitHandler}>  */}
+                    <form
+                      className="form"
+                      onSubmit={(e) => submitHandler(e, i)}
+                    >
+                      <div className="qty">
+                        <input
+                          type="text"
+                          onChange={(e) => {
+                            setQty(e.target.value);
+                          }}
+                          defaultValue={1}
+                        />
+                      </div>
+                      <div className="cart">
+                        <button>
+                          <p>Add To Cart</p>{" "}
+                        </button>
+                      </div>
+                    </form>
                   </div>
                 </MenuItem>
                 <hr />

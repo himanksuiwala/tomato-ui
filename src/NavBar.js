@@ -1,25 +1,46 @@
 import React from "react";
 import styledComponents from "styled-components";
 import styled from "styled-components";
+import { MdShoppingCart } from "react-icons/md";
+import { useSelector } from "react-redux";
+import { getCartQty } from "./features/store/cartSlice";
 const NavBar = () => {
+  const quantity = useSelector(getCartQty);
+  console.log(quantity);
   return (
-    <Nav>
+    <NavContainer>
       <div className="title">
-        <h1><i>Tomato</i>🍅</h1>
+        <h1>
+          <i>Tomato</i>🍅
+        </h1>
       </div>
-    </Nav>
+      <div className="cart">
+        <h1>
+          <MdShoppingCart />
+        </h1>
+        <p>({quantity})</p>
+      </div>
+    </NavContainer>
   );
 };
 
-const Nav = styled.nav`
+const NavContainer = styled.nav`
   height: 70px;
   background: #090b13;
-  ${'' /* background:transparent; */}
-
   display: flex;
-  .title{
-      font-size:32px;
-      ${'' /* padding:10px 0px 15px 0px; */}
+  justify-content: space-between;
+
+  .title {
+    font-size: 32px;
+    ${"" /* padding:10px 0px 15px 0px; */}
+  }
+  .cart {
+    display: flex;
+    h1 {
+      padding-top: 15px;
+    }
+    font-size: 25px;
+    margin-right: 150px;
   }
   align-items: center;
   padding: 0 60px;
