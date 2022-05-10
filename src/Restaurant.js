@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { fetchAsyncStoreMenu } from "./features/store/storeSlice";
 import MenuContainer from "./MenuContainer";
 import { getStoreMenu } from "./features/store/storeSlice";
+import Cart from "./Cart";
 <style>
   @import
   url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');

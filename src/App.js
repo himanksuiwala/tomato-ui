@@ -4,6 +4,7 @@ import Home from "./Home";
 import NavBar from "./NavBar";
 import Delivery from "./Delivery";
 import Restaurant from "./Restaurant";
+import Cart from "./Cart";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/delivery" element={<Delivery />} />
         {/* <Route path="/restaurants" element={<Restaurants/>}/> */}
+        <Route path="/cart" element={<Cart />} />
         <Route path="/delivery/:id" element={<Restaurant />} />
       </Routes>
     </BrowserRouter>

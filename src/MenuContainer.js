@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { MdRestaurantMenu } from "react-icons/md";
+// addToCart
 import { getStoreMenu } from "./features/store/storeSlice";
 import { addProduct } from "./features/store/cartSlice";
+// import { addProduct } from "./features/store/cartSlice";
 <style>
   @import
   url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
@@ -18,7 +20,9 @@ const MenuContainer = () => {
   // };
   const dispatch = useDispatch();
   const submitHandler = (e, i) => {
-    dispatch(addProduct({ i, qty }));
+    // dispatch(addProduct({ i, qty }));
+    dispatch(addProduct(i))
+    // localStorage.setItem("t",JSON.stringify({i,qty}))
     setQty(1);
     e.preventDefault();
   };

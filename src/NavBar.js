@@ -1,9 +1,9 @@
 import React from "react";
-import styledComponents from "styled-components";
 import styled from "styled-components";
 import { MdShoppingCart } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { getCartQty } from "./features/store/cartSlice";
+import { Link } from "react-router-dom";
 const NavBar = () => {
   const quantity = useSelector(getCartQty);
   console.log(quantity);
@@ -14,12 +14,14 @@ const NavBar = () => {
           <i>Tomato</i>🍅
         </h1>
       </div>
-      <div className="cart">
-        <h1>
-          <MdShoppingCart />
-        </h1>
-        <p>({quantity})</p>
-      </div>
+      <Link to={"/cart"}>
+        <div className="cart">
+          <h1>
+            <MdShoppingCart />
+          </h1>
+          <p>({quantity})</p>
+        </div>
+      </Link>
     </NavContainer>
   );
 };

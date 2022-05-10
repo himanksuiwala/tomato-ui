@@ -56,7 +56,7 @@ const OptionsContainer = styled.div`
   ${'' /* flex: 2 0 175px; */}
     margin: auto;
     ${'' /* padding:100px; */}
-    justify-content: space-between; 
+    justify-content: space-evenly; 
     padding: auto;
     flex-wrap: wrap;
   }
