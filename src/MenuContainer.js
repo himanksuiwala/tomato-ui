@@ -20,8 +20,8 @@ const MenuContainer = () => {
   // };
   const dispatch = useDispatch();
   const submitHandler = (e, i) => {
-    // dispatch(addProduct({ i, qty }));
-    dispatch(addProduct(i))
+    dispatch(addProduct({ i, qty }));
+    // dispatch(addProduct(i))
     // localStorage.setItem("t",JSON.stringify({i,qty}))
     setQty(1);
     e.preventDefault();
@@ -72,7 +72,7 @@ const MenuContainer = () => {
                     >
                       <div className="qty">
                         <input
-                          type="text"
+                          type="number"
                           onChange={(e) => {
                             setQty(e.target.value);
                           }}
