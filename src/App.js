@@ -4,9 +4,11 @@ import Home from "./Home";
 import NavBar from "./NavBar";
 import Delivery from "./Delivery";
 import Restaurant from "./Restaurant";
+// ProductDetail
 import Cart from "./Cart";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+
 
 function App() {
   return (

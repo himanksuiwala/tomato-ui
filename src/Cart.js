@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -9,9 +10,8 @@ import { getCartitems } from "./features/store/cartSlice";
 const Cart = () => {
   const [total, setTotal] = useState(0);
   const data = useSelector(getCartitems);
-  // console.log(data);
   let sum = 0;
-
+  var itemlist = [];
   useEffect(() => {
     {
       data.map((item) => {
@@ -21,18 +21,47 @@ const Cart = () => {
     setTotal(sum);
   }, []);
 
+  {
+    data.map((item) => {
+      itemlist.push({ item_id: item.i._id, quantity: item.qty });
+    });
+  }
+
+  const config = {
+    headers: { Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU2YTFhZDdjNjE1OGY3MGI4NGMwODgiLCJpYXQiOjE2NTA4OTUyMTZ9.VGcA2ks97peW_8JZuooW-Ll7tJBJGzr6_lUn88iW7tY` }
+};
+
+  const order = {
+    items: itemlist,
+    order_total: total,
+  };
+  // console.log("i", order);
+  // console.log(typeof order);
+  const submitHandler = (e) => {
+    e.preventDefault();
+    axios.post(`http://localhost:3001/cartOrder`, order,config).then(
+      (resp) => {
+        console.log("Akcjon",resp);
+      },
+      (e) => console.log(e)
+    );
+  };
   return (
     <Container>
       <CartHeader>
         <h1>Cart</h1>
-      </CartHeader>
-
+      </CartHeader>{" "}
+      <CheckoutContainer>
+        <div className="checkout">
+          <Checkout onClick={submitHandler}>Place Order</Checkout>
+        </div>
+      </CheckoutContainer>
       <CartitemContainer>
         <hr />
         {data.map((item) => {
           return (
             <>
-              <CartItem>
+              <CartItem key={item.i._id}>
                 <div className="item-name">
                   <h2>{item.i.name}</h2>
                 </div>
@@ -61,7 +90,16 @@ const Cart = () => {
     </Container>
   );
 };
+const CheckoutContainer = styled.div`
+  float: right;
+  padding-bottom: 5px;
+`;
+const Checkout = styled.button`
+  width: 90px;
+  height: 30px;
+`;
 const TotalCart = styled.div`
+  margin: 20px 0px 30px 0px;
   .total {
     margin-top: 5px;
   }
@@ -72,7 +110,7 @@ const TotalCart = styled.div`
 `;
 
 const CartItem = styled.div`
-  padding: 25px 8px 25px 8px;
+  padding: 18px 8px 18px 8px;
   display: flex;
   justify-content: space-between;
 `;
