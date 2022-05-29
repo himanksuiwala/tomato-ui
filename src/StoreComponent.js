@@ -9,33 +9,8 @@ import { Link } from "react-router-dom";
 </style>;
 const StoreComponent = () => {
   const data = useSelector(getAllStore);
-  console.table(data);
   return (
     <Container>
-      {/* {data &&
-        data.map((i) => {
-          return (
-            <Link to={`\ ${i._id}`}>
-              <Store>
-                <div className="store-image">
-                  <img src="https://ik.imagekit.io/1aafk6gx3bk/davide-cantelli-jpkfc5_d-DI-unsplash_ZjWvaEwdn.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1651904388724" />
-                </div>
-                <div className="store">
-                  <div className="store-title">
-                    <div className="store-name">
-                      <p>InderLok</p>
-                    </div>
-                  </div>
-                  <div className="store-desc">
-                    <div className="store-category">
-                      <p>Chinese Indian Thai</p>
-                    </div>
-                  </div>
-                </div>
-              </Store>
-            </Link>
-          );
-        })} */}
       <Content>
         {data &&
           data.map((i) => {

@@ -7,6 +7,7 @@ export const fetchAsyncStores = createAsyncThunk(
     return response.data;
   }
 );
+
 export const fetchAsyncStoreData = createAsyncThunk(
   "store/Data",
   async (id) => {
@@ -66,7 +67,8 @@ const storeSlice = createSlice({
   },
 });
 
-export const getStoreMenu = (state)=>state.stores.storeMenu
+export const getUser = (state) => state.stores.user;
+export const getStoreMenu = (state) => state.stores.storeMenu;
 export const getAllStore = (state) => state.stores.storelist;
 export const getStoreData = (state) => state.stores.storedata;
 export default storeSlice.reducer;

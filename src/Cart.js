@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { getCartitems } from "./features/store/cartSlice";
+import { getUserInfo } from "./features/store/userSlice";
 <style>
   @import
   url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
@@ -10,6 +11,7 @@ import { getCartitems } from "./features/store/cartSlice";
 const Cart = () => {
   const [total, setTotal] = useState(0);
   const data = useSelector(getCartitems);
+  const token = useSelector(getUserInfo);
   let sum = 0;
   var itemlist = [];
   useEffect(() => {
@@ -28,20 +30,20 @@ const Cart = () => {
   }
 
   const config = {
-    headers: { Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU2YTFhZDdjNjE1OGY3MGI4NGMwODgiLCJpYXQiOjE2NTA4OTUyMTZ9.VGcA2ks97peW_8JZuooW-Ll7tJBJGzr6_lUn88iW7tY` }
-};
+    headers: {
+      Authorization: `Bearer ${token.token}`,
+    },
+  };
 
   const order = {
     items: itemlist,
     order_total: total,
   };
-  // console.log("i", order);
-  // console.log(typeof order);
   const submitHandler = (e) => {
     e.preventDefault();
-    axios.post(`http://localhost:3001/cartOrder`, order,config).then(
+    axios.post(`http://localhost:3001/cartOrder`, order, config).then(
       (resp) => {
-        console.log("Akcjon",resp);
+        console.log("Ordered", resp);
       },
       (e) => console.log(e)
     );

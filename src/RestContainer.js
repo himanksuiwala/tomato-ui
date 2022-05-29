@@ -4,9 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import StoreComponent from "./StoreComponent";
 const RestContainer = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    // dispatch(fetchAsyncStores());
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <Container>

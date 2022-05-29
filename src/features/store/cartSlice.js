@@ -5,6 +5,7 @@ const cartSlice = createSlice({
   initialState: {
     items: [],
     qty: 0,
+    user: {},
     total: 0,
   },
   reducers: {
@@ -12,6 +13,12 @@ const cartSlice = createSlice({
       state.items.push(action.payload);
       state.qty += 1;
     },
+
+    userLogin: (state, action) => {
+      state.user.put(action.payload);
+      console.log("DataLoadede");
+    },
+
     reset: (state) => {
       state.items = [];
       state.qty = 0;
@@ -51,7 +58,8 @@ const cartSlice = createSlice({
 //   },
 // });
 
-export const { addProduct, reset } = cartSlice.actions;
+export const { addProduct, reset, userLogin } = cartSlice.actions;
+// export const userLogin = (state) => state.cart.user;
 export const getCartQty = (state) => state.cart.qty;
 export const getCartitems = (state) => state.cart.items;
 export default cartSlice.reducer;

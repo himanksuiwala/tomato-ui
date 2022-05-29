@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import Hero from "./Hero";
 import NavContainer from "./NavContainer";
 import { useDispatch } from "react-redux";
@@ -15,13 +14,12 @@ const Home = () => {
   return (
     <D>
       <Hero />
-      <NavContainer/>
+      <NavContainer />
       <div>Home</div>
     </D>
   );
 };
 
-const D = styled.div`
-`;
+const D = styled.div``;
 
 export default Home;
