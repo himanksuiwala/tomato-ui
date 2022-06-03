@@ -16,7 +16,6 @@ const cartSlice = createSlice({
 
     userLogin: (state, action) => {
       state.user.put(action.payload);
-      console.log("DataLoadede");
     },
 
     reset: (state) => {

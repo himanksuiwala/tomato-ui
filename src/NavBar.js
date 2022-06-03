@@ -4,8 +4,10 @@ import { MdShoppingCart } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { getCartQty } from "./features/store/cartSlice";
 import { Link } from "react-router-dom";
+import { getUserInfo } from "./features/store/userSlice";
 const NavBar = () => {
   const quantity = useSelector(getCartQty);
+  const user = useSelector(getUserInfo);
   console.log(quantity);
   return (
     <NavContainer>
@@ -14,18 +16,34 @@ const NavBar = () => {
           <i>Tomato</i>🍅
         </h1>
       </div>
-      <Link to={"/cart"}>
-        <div className="cart">
-          <h1>
-            <MdShoppingCart />
-          </h1>
-          <p>({quantity})</p>
-        </div>
-      </Link>
+      <Padder>
+        <Link to={"/cart"}>
+          <div className="cart">
+            <h1>
+              <MdShoppingCart />
+            </h1>
+            <p>({quantity})</p>
+          </div>
+        </Link>
+        <Link to={"/login"}>
+          <div className="account">
+            {user.length === 0 ? <h2>Login</h2> : <h2>My Account</h2>}
+          </div>
+        </Link>
+      </Padder>
     </NavContainer>
   );
 };
-
+const Padder = styled.div`
+  display: flex;
+  .account {
+    padding-left: 50px;
+  }
+  h2 {
+    font-weight: 500;
+    padding-top: 25px;
+  }
+`;
 const NavContainer = styled.nav`
   height: 70px;
   background: #090b13;
@@ -34,7 +52,6 @@ const NavContainer = styled.nav`
 
   .title {
     font-size: 32px;
-    ${"" /* padding:10px 0px 15px 0px; */}
   }
   .cart {
     display: flex;
@@ -42,7 +59,7 @@ const NavContainer = styled.nav`
       padding-top: 15px;
     }
     font-size: 25px;
-    margin-right: 150px;
+    margin: 10px;
   }
   align-items: center;
   padding: 0 60px;
