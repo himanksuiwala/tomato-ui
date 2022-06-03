@@ -37,12 +37,11 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: {
     [fetchAsyncUserLogin.fulfilled]: (state, { payload }) => {
-      console.log("USER");
       return { ...state, user: payload };
     },
     [fetchAsyncUserLogOut.fulfilled]: (state, { payload }) => {
-      console.log("USER LoggedOut");
-      return { ...state, user: payload };
+      state.user = [];
+      console.log("USER LoggedOUT", state.user);
     },
   },
 });
