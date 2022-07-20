@@ -14,7 +14,6 @@ const Login = () => {
   const data = useSelector(getUserInfo);
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
-  console.log(data.length);
   const cred = {
     email: user,
     password: pwd,
@@ -31,58 +30,76 @@ const Login = () => {
 
   useEffect(() => {}, []);
   return (
-    <LoginContainer>
-      <button onClick={handleLogout}></button>
-      <LoginSection>
-        {data == 0 ? (
-          <Container>
-            <div className="head">
-              <h1>Sign In</h1>
-            </div>
-            <form onSubmit={handleSubmit}>
-              <div className="user">
-                <label htmlFor="username">Username:</label>
-                <input
-                  type="text"
-                  id="username"
-                  // ref={userRef}
-                  autoComplete="off"
-                  onChange={(e) => setUser(e.target.value)}
-                  value={user}
-                  required
-                />
-              </div>
+    <>
+      <OuterContainer>
+        <div className="background">
+          <img
+            src={`https://ik.imagekit.io/1aafk6gx3bk/maria-orlova-oMTlhdFUhdI-unsplash_d-n1N206a.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1652299330381`}
+          />
+        </div>
+        <LoginContainer>
+          <button onClick={handleLogout}></button>
+          <LoginSection>
+            <div className="dummy">
+              {/* <img src="https://ik.imagekit.io/1aafk6gx3bk/maria-orlova-oMTlhdFUhdI-unsplash_d-n1N206a.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1652299330381"></img> */}
+              {data == 0 ? (
+                <Container>
+                  <div className="head">
+                    <h1>Sign In</h1>
+                  </div>
+                  <form onSubmit={handleSubmit}>
+                    <div className="user">
+                      <label htmlFor="username">Username:</label>
+                      <input
+                        type="text"
+                        id="username"
+                        // ref={userRef}
+                        autoComplete="off"
+                        onChange={(e) => setUser(e.target.value)}
+                        value={user}
+                        required
+                      />
+                    </div>
 
-              <div className="pass">
-                <label htmlFor="password">Password:</label>
-                <input
-                  type="password"
-                  id="password"
-                  onChange={(e) => setPwd(e.target.value)}
-                  value={pwd}
-                  required
-                />
-              </div>
-              <div className="btn">
-                <button>Sign In</button>
-              </div>
-            </form>
-            <p>
-              Need an Account?
-              <br />
-              <span className="line">
-                {/*put router link here*/}
-                <a href="#">Sign Up</a>
-              </span>
-            </p>
-          </Container>
-        ) : (
-          <LogIn>Hi Threre</LogIn>
-        )}
-      </LoginSection>
-    </LoginContainer>
+                    <div className="pass">
+                      <label htmlFor="password">Password:</label>
+                      <input
+                        type="password"
+                        id="password"
+                        onChange={(e) => setPwd(e.target.value)}
+                        value={pwd}
+                        required
+                      />
+                    </div>
+                    <div className="btn">
+                      <button>Sign In</button>
+                    </div>
+                  </form>
+                  <p>
+                    Need an Account?
+                    <br />
+                    <span className="line">
+                      {/*put router link here*/}
+                      <a href="#">Sign Up</a>
+                    </span>
+                  </p>
+                </Container>
+              ) : (
+                <LogIn>Hi Threre</LogIn>
+              )}
+            </div>
+          </LoginSection>
+        </LoginContainer>
+      </OuterContainer>
+    </>
   );
 };
+const OuterContainer = styled.div`
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+`;
 const LogIn = styled.div``;
 const LoginButton = styled.button``;
 const Container = styled.div`
@@ -92,7 +109,7 @@ const Container = styled.div`
   .btn {
     margin: 20px;
   }
-
+  background: pink;
   .head {
     width: 50%;
     margin: 0 auto;
@@ -103,7 +120,7 @@ const LoginSection = styled.div`
   justify-content: center;
 `;
 const LoginContainer = styled.div`
-  margin: 50px;
+  ${'' /* max-width: 100%; */}
 `;
 
 export default Login;
