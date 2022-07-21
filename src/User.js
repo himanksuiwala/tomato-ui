@@ -5,9 +5,20 @@ import styled from "styled-components";
 import { getUserInfo } from "./features/store/userSlice";
 const User = () => {
   const data = useSelector(getUserInfo);
-  const [orders, setOrders] = useState(true);
-  const clickHandler = async (e) => {
-    setOrders(false);
+  let defaultState = true;
+  const [ordersContainer, setOrdersContainer] = useState(false);
+  const [accountContainer, SetaccountContainer] = useState(false);
+  const OrderclickHandler = async (e) => {
+    setOrdersContainer(true);
+    defaultState = false;
+    SetaccountContainer(false);
+  };
+
+  const AccountclickHandler = async (e) => {
+    SetaccountContainer(true);
+    defaultState = false;
+    setOrdersContainer(false);
+    console.log("as");
   };
   const config = {
     headers: {
@@ -17,7 +28,7 @@ const User = () => {
   useEffect(() => {
     axios.get("http://localhost:3001/cart", config).then(
       (resp) => {
-        console.log("ORders:", resp.data);
+        console.table("ORders:", resp.data);
       },
       (e) => console.log(e)
     );
@@ -29,19 +40,19 @@ const User = () => {
       </Header>
       <BottomContainer>
         <OptionsContainer>
-          <div className="orders">
-            <h1 onClick={clickHandler}>Your Orders</h1>
+          <div onClick={OrderclickHandler} className="orders">
+            <h1>Your Orders</h1>
           </div>
-          <div className="Account">
+          <div onClick={AccountclickHandler} className="Account">
             <h1>Account Details</h1>
           </div>
         </OptionsContainer>
         <hr />
         <Body>
-          {orders ? (
-            <MyOrders>MY IRDRE</MyOrders>
+          {ordersContainer ? (
+            <MyOrders></MyOrders>
           ) : (
-            <Account>Account Details</Account>
+            <accountContainer>Account</accountContainer>
           )}
         </Body>
       </BottomContainer>
@@ -49,6 +60,7 @@ const User = () => {
   );
 };
 
+const DefaultContainer = styled.div``;
 const Account = styled.div``;
 const MyOrders = styled.div``;
 const Body = styled.div``;

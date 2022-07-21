@@ -18,6 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/delivery" element={<Delivery />} />
         <Route path="/login" element={<TempLogin />} />
+        {/* <Route path="/delivery/:id/cart" element={<Cart />} /> */}
         <Route path="/cart" element={<Cart />} />
         <Route element={<ProtectedRoutes />}>
           <Route path="/user" element={<User />} />

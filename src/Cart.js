@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { getCartitems } from "./features/store/cartSlice";
+import { getStoreData } from "./features/store/storeSlice";
 import { getUserInfo } from "./features/store/userSlice";
 <style>
   @import
@@ -13,6 +14,7 @@ const Cart = () => {
   const data = useSelector(getCartitems);
   const token = useSelector(getUserInfo);
   let sum = 0;
+  let s_id = data[0].i.store_id;
   var itemlist = [];
   useEffect(() => {
     {
@@ -34,9 +36,9 @@ const Cart = () => {
       Authorization: `Bearer ${token.token}`,
     },
   };
-
   const order = {
     items: itemlist,
+    store_id: s_id,
     order_total: total,
   };
   const submitHandler = (e) => {
