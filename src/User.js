@@ -2,10 +2,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+
 import { getUserInfo } from "./features/store/userSlice";
+var moment = require("moment");
+var momentutc = require('moment-timezone');
+
 const User = () => {
   const data = useSelector(getUserInfo);
   let defaultState = true;
+  const [order, setOrder] = useState();
   const [ordersContainer, setOrdersContainer] = useState(false);
   const [accountContainer, SetaccountContainer] = useState(false);
   const OrderclickHandler = async (e) => {
@@ -25,14 +30,21 @@ const User = () => {
       Authorization: `Bearer ${data.token}`,
     },
   };
+
   useEffect(() => {
     axios.get("http://localhost:3001/cart", config).then(
       (resp) => {
+        setOrder(resp.data);
         console.table("ORders:", resp.data);
       },
       (e) => console.log(e)
     );
   }, []);
+  // var dateComponent = moment("2011-04-11T10:20:30Z").utc().format("YYYY-MM-DD");
+  var timeComponent = moment("2011-04-11T10:20:30Z").utc().format("HH:mm:ss");
+
+  console.log("A", timeComponent);
+
   return (
     <Container>
       <Header>
@@ -50,7 +62,47 @@ const User = () => {
         <hr />
         <Body>
           {ordersContainer ? (
-            <MyOrders></MyOrders>
+            <MyOrders>
+              <OrderItemContainer>
+                {order.map((i) => {
+                  return (
+                    <OrderItem>
+                      <div className="restro-name">
+                        <h3>{i.store_id.store_name}</h3>
+                      </div>
+                      <div className="locality">
+                        <p>{i.store_id.city}</p>
+                      </div>
+                      <div className="content">
+                        <div className="date">
+                          <p>Ordered on</p>
+                          <span>
+                            {" "}
+                            {moment(
+                              i.date,
+                              "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
+                            ).format("DD")}{" "}
+                          </span>
+                          <span>
+                            {moment(
+                              i.date,
+                              "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
+                            ).format("MMM")}{" "}
+                          </span>
+                          <span>
+                            {moment(
+                              i.date,
+                              "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
+                            ).format("YYYY")}{" "}
+                          </span>
+                          <span>at {momentutc(i.date).tz('Asia/Kolkata').format("HH:mm a")} </span>
+                        </div>
+                      </div>
+                    </OrderItem>
+                  );
+                })}
+              </OrderItemContainer>
+            </MyOrders>
           ) : (
             <accountContainer>Account</accountContainer>
           )}
@@ -60,6 +112,19 @@ const User = () => {
   );
 };
 
+const OrderItem = styled.div`
+  .restro-name {
+    h3 {
+      font-size: 23px;
+    }
+  }
+  .locality {
+    color: grey;
+  }
+`;
+const OrderItemContainer = styled.div`
+  margin: 10px 7px 1px 7px;
+`;
 const DefaultContainer = styled.div``;
 const Account = styled.div``;
 const MyOrders = styled.div``;

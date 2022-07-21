@@ -25,7 +25,7 @@ const NavBar = () => {
             <p>({quantity})</p>
           </div>
         </Link>
-        <Link to={"/login"}>
+        <Link to={"/user"}>
           <div className="account">
             {user.length === 0 ? <h2>Login</h2> : <h2>My Account</h2>}
           </div>

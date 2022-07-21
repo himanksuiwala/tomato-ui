@@ -13,6 +13,7 @@ const Cart = () => {
   const [total, setTotal] = useState(0);
   const data = useSelector(getCartitems);
   const token = useSelector(getUserInfo);
+  console.log((data))
   let sum = 0;
   let s_id = data[0].i.store_id;
   var itemlist = [];
