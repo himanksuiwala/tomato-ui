@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { getUserInfo } from "./features/store/userSlice";
 var moment = require("moment");
-var momentutc = require('moment-timezone');
+var momentutc = require("moment-timezone");
 
 const User = () => {
   const data = useSelector(getUserInfo);
@@ -67,35 +67,42 @@ const User = () => {
                 {order.map((i) => {
                   return (
                     <OrderItem>
-                      <div className="restro-name">
-                        <h3>{i.store_id.store_name}</h3>
-                      </div>
-                      <div className="locality">
-                        <p>{i.store_id.city}</p>
-                      </div>
-                      <div className="content">
-                        <div className="date">
-                          <p>Ordered on</p>
-                          <span>
-                            {" "}
-                            {moment(
-                              i.date,
-                              "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
-                            ).format("DD")}{" "}
-                          </span>
-                          <span>
-                            {moment(
-                              i.date,
-                              "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
-                            ).format("MMM")}{" "}
-                          </span>
-                          <span>
-                            {moment(
-                              i.date,
-                              "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
-                            ).format("YYYY")}{" "}
-                          </span>
-                          <span>at {momentutc(i.date).tz('Asia/Kolkata').format("HH:mm a")} </span>
+                      <div className="top">
+                        <div className="restro-name">
+                          <span className="name">{i.store_id.store_name}</span>
+                          <span className="locality"> {i.store_id.city}</span>
+                        </div>
+                        <div className="content">
+                          <div className="date">
+                            <div className="order-tag">
+                              <p>Ordered on</p>
+                            </div>
+                            <span>
+                              {" "}
+                              {moment(
+                                i.date,
+                                "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
+                              ).format("DD")}{" "}
+                            </span>
+                            <span>
+                              {moment(
+                                i.date,
+                                "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
+                              ).format("MMM")}{" "}
+                            </span>
+                            <span>
+                              {moment(
+                                i.date,
+                                "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
+                              ).format("YYYY")}{" "}
+                            </span>
+                            <span>
+                              at{" "}
+                              {momentutc(i.date)
+                                .tz("Asia/Kolkata")
+                                .format("HH:mm a")}{" "}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </OrderItem>
@@ -114,11 +121,22 @@ const User = () => {
 
 const OrderItem = styled.div`
   .restro-name {
-    h3 {
-      font-size: 23px;
+    .name {
+      font-size: 28px;
+      font-weight: 550;
     }
   }
+  .order-tag {
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+  }
+  .top {
+    display: flex;
+    justify-content: space-between;
+  }
   .locality {
+    font-size: 19px;
     color: grey;
   }
 `;
