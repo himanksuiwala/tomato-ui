@@ -23,7 +23,6 @@ const User = () => {
     SetaccountContainer(true);
     defaultState = false;
     setOrdersContainer(false);
-    console.log("as");
   };
   const config = {
     headers: {
@@ -105,6 +104,37 @@ const User = () => {
                           </div>
                         </div>
                       </div>
+                      <div className="bottom">
+                        <div className="item-content">
+                          {i.items.map((item) => {
+                            return (
+                              <div className="order-item-contents">
+                                <div className="order-item-name">
+                                  <p>{item.item_id.name}</p>
+                                </div>
+                                <div>
+                                  <div className="order-item-qty">
+                                    <p>x {item.quantity}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                        <div className="order-total">
+                          <div className="order-inner-container">
+                            <div className="order-total-tag">
+                              <p>Order Total</p>
+                            </div>
+                            <div className="order-total-fig">
+                              <span> ₹ {i.order_total}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="line">
+                        <hr />
+                      </div>
                     </OrderItem>
                   );
                 })}
@@ -120,6 +150,38 @@ const User = () => {
 };
 
 const OrderItem = styled.div`
+  margin: 10px 0px 7px 0px;
+
+  .line {
+    margin: 7px 5px 1px 5px;
+  }
+
+  .order-inner-container {
+    margin: 40px 1px 10px 1px;
+  }
+  .order-total-tag {
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+    width: 170px;
+  }
+  .item-content {
+    width: 220px;
+  }
+  .order-total-fig {
+    display: flex;
+    justify-content: center;
+  }
+  .order-item-contents {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    margin: 1px 0px 0px 5px;
+  }
   .restro-name {
     .name {
       font-size: 28px;
