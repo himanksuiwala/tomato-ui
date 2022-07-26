@@ -27,8 +27,17 @@ export const fetchAsyncUserLogOut = createAsyncThunk(
   }
 );
 
+export const fetchAsyncUserOrder = createAsyncThunk(
+  "user/orders",
+  async (config) => {
+    const response = await axios.get(`http://localhost:3001/cart`, config);
+    return response.data;
+  }
+);
+
 const initialState = {
   user: [],
+  orders: [],
 };
 
 const userSlice = createSlice({
@@ -43,7 +52,11 @@ const userSlice = createSlice({
       state.user = [];
       console.log("USER LoggedOUT", state.user);
     },
+    [fetchAsyncUserOrder.fulfilled]: (state, { payload }) => {
+      return { ...state, orders: payload };
+    },
   },
 });
 export const getUserInfo = (state) => state.user.user;
+export const getUserOrders = (state) => state.user.orders;
 export default userSlice.reducer;

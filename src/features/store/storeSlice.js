@@ -32,6 +32,7 @@ const initialState = {
   storelist: [],
   storedata: {},
   storeMenu: [],
+  order: [],
 };
 
 const storeSlice = createSlice({
@@ -66,7 +67,7 @@ const storeSlice = createSlice({
     },
   },
 });
-
+export const getOrder = (state) => state.stores.order;
 export const getUser = (state) => state.stores.user;
 export const getStoreMenu = (state) => state.stores.storeMenu;
 export const getAllStore = (state) => state.stores.storelist;
