@@ -121,7 +121,23 @@ const User = () => {
                             );
                           })}
                         </div>
+                        <div className="address">
+                          <div className="add-tag">
+                            <span className="add-tag-add">
+                              Delivery Address:
+                            </span>
+                            <span>{i.delivery_address}</span>
+                          </div>
+                        </div>
                         <div className="order-total">
+                          <div className="order-payment">
+                            <div className="order-payment-tag">
+                              <p>Mode of payment</p>
+                            </div>
+                            <div className="payment-type">
+                              <span>{i.payment_type}</span>
+                            </div>
+                          </div>
                           <div className="order-inner-container">
                             <div className="order-total-tag">
                               <p>Order Total</p>
@@ -152,12 +168,31 @@ const User = () => {
 const OrderItem = styled.div`
   margin: 10px 0px 7px 0px;
 
+  .address {
+    .add-tag-add {
+      font-weight: 750;
+    }
+  }
+  .order-payment-tag {
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+  }
+
+  .order-payment {
+    margin: 20px 1px 20px 1px;
+  }
+
+  .payment-type {
+    display: flex;
+    justify-content: center;
+  }
   .line {
     margin: 7px 5px 1px 5px;
   }
 
   .order-inner-container {
-    margin: 40px 1px 10px 1px;
+    ${"" /* margin: 20px 1px 20px 1px; */}
   }
   .order-total-tag {
     display: flex;
@@ -188,6 +223,7 @@ const OrderItem = styled.div`
       font-weight: 550;
     }
   }
+
   .order-tag {
     font-weight: 600;
     display: flex;
