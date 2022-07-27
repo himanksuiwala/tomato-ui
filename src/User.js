@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { fetchAsyncUserOrder, getUserInfo } from "./features/store/userSlice";
+import {
+  fetchAsyncUserLogOut,
+  fetchAsyncUserOrder,
+  getUserInfo,
+} from "./features/store/userSlice";
 import OrderItemContainer from "./OrderItemContainer";
+import ProfileContainer from "./ProfileContainer";
 const User = () => {
   const data = useSelector(getUserInfo);
   const dispatch = useDispatch();
@@ -15,6 +20,10 @@ const User = () => {
     SetaccountContainer(false);
   };
 
+  const logOutHandler = async (e) => {
+    dispatch(fetchAsyncUserLogOut(data.token));
+    console.log("Logout");
+  };
   const AccountclickHandler = async (e) => {
     SetaccountContainer(true);
     defaultState = false;
@@ -29,12 +38,14 @@ const User = () => {
   useEffect(() => {
     dispatch(fetchAsyncUserOrder(config));
   }, []);
-  console.log("A", data);
 
   return (
     <Container>
       <Header>
         <h1>My Account</h1>
+        <div className="logout" onClick={logOutHandler}>
+          <h3>Logout</h3>
+        </div>
       </Header>
       <BottomContainer>
         <OptionsContainer>
@@ -42,7 +53,7 @@ const User = () => {
             <h1>Your Orders</h1>
           </div>
           <div onClick={AccountclickHandler} className="Account">
-            <h1>Account Details</h1>
+            <h1>Profile</h1>
           </div>
         </OptionsContainer>
         <hr />
@@ -52,7 +63,9 @@ const User = () => {
               <OrderItemContainer />
             </MyOrders>
           ) : (
-            <accountContainer>Account</accountContainer>
+            <accountContainer>
+              <ProfileContainer />
+            </accountContainer>
           )}
         </Body>
       </BottomContainer>
@@ -78,6 +91,12 @@ const OptionsContainer = styled.div`
 `;
 const BottomContainer = styled.div``;
 const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  .logout {
+    margin-top: 10px;
+    text-decoration: underline;
+  }
   margin-top: 40px;
   h1 {
     font-size: 80px;
