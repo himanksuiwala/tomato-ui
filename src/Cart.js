@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { getCartitems } from "./features/store/cartSlice";
+import { getCartitems, reset } from "./features/store/cartSlice";
 import { getStoreData } from "./features/store/storeSlice";
 import { getUserInfo } from "./features/store/userSlice";
 <style>
@@ -11,12 +11,56 @@ import { getUserInfo } from "./features/store/userSlice";
 </style>;
 const Cart = () => {
   const [total, setTotal] = useState(0);
+  const [payment, setPayment] = useState();
+  const dispatch = useDispatch();
   const data = useSelector(getCartitems);
   const token = useSelector(getUserInfo);
-  console.log((data))
-  let sum = 0;
-  let s_id = data[0].i.store_id;
+  var order = {};
   var itemlist = [];
+  let sum = 0;
+  var s_id = 0;
+
+  data != 0 && (s_id = data[0].i.store_id);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token.token}`,
+    },
+  };
+
+  {
+    s_id &&
+      itemlist &&
+      (order = {
+        items: itemlist,
+        store_id: s_id,
+        order_total: total,
+        payment_type: payment,
+      });
+  }
+  const submitHandler = (e) => {
+    e.preventDefault();
+    {
+      payment
+        ? axios.post(`http://localhost:3001/cartOrder`, order, config).then(
+            (resp) => {
+              resp.status == 200
+                ? alert("Order Sucessfull !")
+                : alert("Error while Placing your Order");
+            },
+            (e) => console.log(e)
+          )
+        : alert("Please select one of the payment method");
+    }
+  };
+
+  const paymentHandler = (e) => {
+    setPayment(e.target.value);
+  };
+  const clearCartHandler = (e) => {
+    dispatch(reset());
+  };
+
   useEffect(() => {
     {
       data.map((item) => {
@@ -25,93 +69,150 @@ const Cart = () => {
     }
     setTotal(sum);
   }, []);
-
-  {
-    data.map((item) => {
-      itemlist.push({ item_id: item.i._id, quantity: item.qty });
-    });
-  }
-
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token.token}`,
-    },
-  };
-  const order = {
-    items: itemlist,
-    store_id: s_id,
-    order_total: total,
-  };
-  const submitHandler = (e) => {
-    e.preventDefault();
-    axios.post(`http://localhost:3001/cartOrder`, order, config).then(
-      (resp) => {
-        console.log("Ordered", resp);
-      },
-      (e) => console.log(e)
-    );
-  };
   return (
     <Container>
       <CartHeader>
         <h1>Cart</h1>
+        {data.length ? (
+          <ClearCart onClick={clearCartHandler}>
+            <h5>Clear Cart</h5>
+          </ClearCart>
+        ) : (
+          <h5></h5>
+        )}
       </CartHeader>{" "}
-      <CheckoutContainer>
-        <div className="checkout">
-          <Checkout onClick={submitHandler}>Place Order</Checkout>
-        </div>
-      </CheckoutContainer>
-      <CartitemContainer>
-        <hr />
-        {data.map((item) => {
-          return (
-            <>
-              <CartItem key={item.i._id}>
-                <div className="item-name">
-                  <h2>{item.i.name}</h2>
-                </div>
-                <div>
-                  <div className="price">
-                    <p>
-                      ₹ {item.i.price} x {item.qty} = {item.qty * item.i.price}{" "}
-                    </p>
-                  </div>
-                  <div className="qty"></div>
-                </div>
-              </CartItem>
-              <hr />
-            </>
-          );
-        })}
-        <TotalCart>
-          <div className="grand-total">
-            <h2>Grand Total</h2>
-          </div>
-          <div className="total">
-            <h3>₹ {total}</h3>
-          </div>
-        </TotalCart>
-      </CartitemContainer>
+      {data.length == 0 ? (
+        <EmptyCart>
+          <h1>Do add somethin' to checkout</h1>
+        </EmptyCart>
+      ) : (
+        <BottomContainer>
+          <CartitemContainer>
+            <hr />
+            {data.map((item) => {
+              return (
+                <>
+                  <CartItem key={item.i._id}>
+                    <div className="item-name">
+                      <h2>{item.i.name}</h2>
+                    </div>
+                    <div>
+                      <div className="price">
+                        <p>
+                          ₹ {item.i.price} x {item.qty} ={" "}
+                          {item.qty * item.i.price}{" "}
+                        </p>
+                      </div>
+                      <div className="qty"></div>
+                    </div>
+                  </CartItem>
+                  <hr />
+                </>
+              );
+            })}
+          </CartitemContainer>
+          <Payment>
+            <div className="payment">
+              <h3>Mode of Payment</h3>
+            </div>
+            <div className="payment-style">
+              <input
+                onClick={paymentHandler}
+                type="radio"
+                id="cash"
+                name="fav_language"
+                value="Cash"
+              />
+                <label for="cash">Cash</label>
+            </div>
+            <div className="payment-style">
+              <input
+                onClick={paymentHandler}
+                type="radio"
+                id="cash"
+                name="fav_language"
+                value="Credit/Debit Card"
+              />
+                <label for="cash">Credit/Debit Card</label>
+            </div>
+            <div className="payment-style">
+              <input
+                onClick={paymentHandler}
+                type="radio"
+                id="cash"
+                name="fav_language"
+                value="UPI"
+              />
+                <label for="cash">UPI</label>
+            </div>
+            <div className="payment-style">
+              <input
+                onClick={paymentHandler}
+                type="radio"
+                id="cash"
+                name="fav_language"
+                value="cash"
+              />
+                <label for="cash">Paytm</label>
+            </div>
+
+            <br />
+          </Payment>
+          <CartSubmit>
+            <TotalCart>
+              <div className="grand-total">
+                <h3>Grand Total :</h3>
+              </div>
+              <div className="total">
+                <h2>₹ {total}</h2>
+              </div>
+            </TotalCart>
+            <PlaceOrder>
+              <button onClick={submitHandler}>
+                {" "}
+                <h2>Place Order</h2>
+              </button>
+            </PlaceOrder>
+          </CartSubmit>
+        </BottomContainer>
+      )}
     </Container>
   );
 };
-const CheckoutContainer = styled.div`
-  float: right;
-  padding-bottom: 5px;
+
+const ClearCart = styled.div`
+  font-size: 25px;
+  text-decoration: underline;
+  margin-top: 70px;
 `;
-const Checkout = styled.button`
-  width: 90px;
-  height: 30px;
+
+const CartSubmit = styled.div``;
+const PlaceOrder = styled.div`
+  padding-left: 40px;
 `;
-const TotalCart = styled.div`
-  margin: 20px 0px 30px 0px;
-  .total {
-    margin-top: 5px;
+const Payment = styled.div`
+  margin-top: 18px;
+  .payment-style {
+    margin: 5px 1px 5px 1px;
   }
-  width: 280px;
+`;
+const BottomContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const EmptyCart = styled.div`
+  margin-left: 15px;
+`;
+
+const TotalCart = styled.div`
+  margin: 18px 20px 30px 0px;
+  ${"" /* width: 280px; */}
   float: right;
   display: flex;
-  justify-content: space-evenly;
+  .total {
+    margin: -6px 0px 0px 10px;
+    font-size: 20px;
+  }
 `;
 
 const CartItem = styled.div`
@@ -120,9 +221,19 @@ const CartItem = styled.div`
   justify-content: space-between;
 `;
 const CartitemContainer = styled.div`
-  margin-top: 35px;
+  margin-top: 23px;
+  width:40vw;
+  }
 `;
 const CartHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  .clear {
+    font-size: 25px;
+    text-decoration: underline;
+    margin-top: 70px;
+  }
   font-size: 70px;
   margin-top: 50px;
   font-family: "Inter", sans-serif;
