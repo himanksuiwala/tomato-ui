@@ -44,7 +44,7 @@ const Cart = () => {
       payment
         ? axios.post(`http://localhost:3001/cartOrder`, order, config).then(
             (resp) => {
-              resp.status == 200
+              resp.status == 200 && dispatch(reset())
                 ? alert("Order Sucessfull !")
                 : alert("Error while Placing your Order");
             },
