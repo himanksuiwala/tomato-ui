@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { MdShoppingCart } from "react-icons/md";
 import { useSelector } from "react-redux";
@@ -8,7 +8,7 @@ import { getUserInfo } from "./features/store/userSlice";
 const NavBar = () => {
   const quantity = useSelector(getCartQty);
   const user = useSelector(getUserInfo);
-  console.log(quantity);
+  const [isUser, setUser] = useState(false);
   return (
     <NavContainer>
       <div className="title">
@@ -27,7 +27,11 @@ const NavBar = () => {
         </Link>
         <Link to={"/user"}>
           <div className="account">
-            {user.length === 0 ? <h2>Login</h2> : <h2>My Account</h2>}
+            {user == undefined || user.length == 0 ? (
+              <h2>Login</h2>
+            ) : (
+              <h2>My Account</h2>
+            )}
           </div>
         </Link>
       </Padder>
