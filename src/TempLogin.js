@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "./features/store/cartSlice";
@@ -9,9 +9,11 @@ import {
   getUserInfo,
 } from "./features/store/userSlice";
 import $ from "jquery";
+import { useNavigate } from "react-router-dom";
 
 const TempLogin = () => {
   const dispatch = useDispatch();
+  let navigate = useNavigate();
   const data = useSelector(getUserInfo);
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
@@ -19,6 +21,15 @@ const TempLogin = () => {
     email: user,
     password: pwd,
   };
+  useEffect(() => {
+    {
+      data.length == 0 ? console.log("Please try to re-Login") : navigate("/");
+    }
+  }, []);
+
+  {
+    data.length == 0 ? alert("Please try to re-Login") : navigate("/");
+  }
   const FormToggle = () => {
     $("form").animate({ height: "toggle", opacity: "toggle" }, "slow");
   };
@@ -28,6 +39,25 @@ const TempLogin = () => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     dispatch(fetchAsyncUserLogin(cred));
+    // try {
+    //   const response = await axios.post(
+    //     "http://localhost:3001/user/login",
+    //     cred,
+    //     {
+    //       headers: { "Content-Type": "application/json" },
+    //       withCredentials: true,
+    //     }
+    //   );
+    //   console.log(response.data);
+    //   navigate("/");
+    //   return response.data;
+    // } catch (error) {
+    //   alert(error.response.data.msg);
+    // }
+    // axios.post("http://localhost:3001/user/login", cred, {
+    //   headers: { "Content-Type": "application/json" },
+    //   withCredentials: true,
+    // });
     setUser("");
     setPwd("");
   };
@@ -49,8 +79,8 @@ const TempLogin = () => {
           <HeroHeader>
             <div className="header">
               <FormContainer>
-                <div class="login-page">
-                  <div class="form">
+                <div className="login-page">
+                  <div className="form">
                     <div className="login-header">
                       <div>
                         <h1>🍅</h1>
@@ -59,19 +89,22 @@ const TempLogin = () => {
                         <h2>Welcome Back!</h2>
                       </div>
                     </div>
-                    <form class="register-form" onSubmit={handleRegisterSubmit}>
+                    <form
+                      className="register-form"
+                      onSubmit={handleRegisterSubmit}
+                    >
                       <input type="text" placeholder="name" />
                       <input type="password" placeholder="password" />
                       <input type="text" placeholder="email address" />
                       <button>create</button>
-                      <p class="message">
+                      <p className="message">
                         Already registered?{" "}
                         <a href="#" onClick={FormToggle}>
                           Sign In
                         </a>
                       </p>
                     </form>
-                    <form class="login-form" onSubmit={handleLoginSubmit}>
+                    <form className="login-form" onSubmit={handleLoginSubmit}>
                       <input
                         type="text"
                         id="username"
@@ -90,7 +123,7 @@ const TempLogin = () => {
                         placeholder="password"
                       />
                       <button>login</button>
-                      <p class="message">
+                      <p className="message">
                         Not registered?{" "}
                         <a href="#" onClick={FormToggle}>
                           Create an account

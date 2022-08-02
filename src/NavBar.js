@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { MdShoppingCart } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { getCartQty } from "./features/store/cartSlice";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { getUserInfo } from "./features/store/userSlice";
 const NavBar = () => {
   const quantity = useSelector(getCartQty);
