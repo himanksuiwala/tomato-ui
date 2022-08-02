@@ -16,6 +16,17 @@ export const fetchAsyncUserLogin = createAsyncThunk(
   }
 );
 
+export const fetchAsyncUserRegister = createAsyncThunk(
+  "user/Register",
+  async (cred) => {
+    const response = await axios.post("http://localhost:3001/user", cred, {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    });
+    console.log(response.data);
+    return response.data;
+  }
+);
 export const fetchAsyncUserLogOut = createAsyncThunk(
   "user/LogOut",
   async (token) => {
@@ -52,8 +63,17 @@ const userSlice = createSlice({
       alert("Please Check Your Username & Password.");
       state.user = [];
     },
+    [fetchAsyncUserRegister.fulfilled]: (state, { payload }) => {
+      return { ...state, user: payload };
+    },
+    [fetchAsyncUserRegister.rejected]: (state) => {
+      alert("Something is wrong");
+      state.user = [];
+    },
+
     [fetchAsyncUserLogOut.fulfilled]: (state, { payload }) => {
       state.user = [];
+      state.orders = [];
       console.log("USER LoggedOUT", state.user);
     },
     [fetchAsyncUserOrder.fulfilled]: (state, { payload }) => {

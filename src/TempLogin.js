@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "./features/store/cartSlice";
-import { fetchAsyncUser } from "./features/store/storeSlice";
+// import { fetchAsyncUser } from "./features/store/storeSlice";
 import {
   fetchAsyncUserLogin,
   fetchAsyncUserLogOut,
+  fetchAsyncUserRegister,
   getUserInfo,
 } from "./features/store/userSlice";
 import $ from "jquery";
@@ -16,8 +17,14 @@ const TempLogin = () => {
   let navigate = useNavigate();
   const data = useSelector(getUserInfo);
   const [user, setUser] = useState("");
+  const [userName, setUserName] = useState("");
   const [pwd, setPwd] = useState("");
   const cred = {
+    email: user,
+    password: pwd,
+  };
+  const register_cred = {
+    name: userName,
     email: user,
     password: pwd,
   };
@@ -44,7 +51,11 @@ const TempLogin = () => {
   };
 
   const handleRegisterSubmit = async (e) => {
-    console.log("Registered");
+    e.preventDefault();
+    dispatch(fetchAsyncUserRegister(register_cred));
+    setUser("");
+    setPwd("");
+    setUserName("");
   };
 
   return (
@@ -74,9 +85,26 @@ const TempLogin = () => {
                       className="register-form"
                       onSubmit={handleRegisterSubmit}
                     >
-                      <input type="text" placeholder="name" />
-                      <input type="password" placeholder="password" />
-                      <input type="text" placeholder="email address" />
+                      <input
+                        type="text"
+                        onChange={(e) => {
+                          setUserName(e.target.value);
+                        }}
+                        value={userName}
+                        placeholder="name"
+                      />
+                      <input
+                        type="password"
+                        onChange={(e) => setPwd(e.target.value)}
+                        value={pwd}
+                        placeholder="password"
+                      />
+                      <input
+                        type="text"
+                        onChange={(e) => setUser(e.target.value)}
+                        value={user}
+                        placeholder="email address"
+                      />
                       <button>create</button>
                       <p className="message">
                         Already registered?{" "}
