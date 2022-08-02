@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
 export const fetchAsyncUserLogin = createAsyncThunk(
   "user/Login",
   async (cred) => {
@@ -12,6 +11,7 @@ export const fetchAsyncUserLogin = createAsyncThunk(
         withCredentials: true,
       }
     );
+
     return response.data;
   }
 );
@@ -48,6 +48,10 @@ const userSlice = createSlice({
     [fetchAsyncUserLogin.fulfilled]: (state, { payload }) => {
       return { ...state, user: payload };
     },
+    [fetchAsyncUserLogin.rejected]: (state) => {
+      alert("Please Check Your Username & Password.");
+      state.user = [];
+    },
     [fetchAsyncUserLogOut.fulfilled]: (state, { payload }) => {
       state.user = [];
       console.log("USER LoggedOUT", state.user);
@@ -55,8 +59,12 @@ const userSlice = createSlice({
     [fetchAsyncUserOrder.fulfilled]: (state, { payload }) => {
       return { ...state, orders: payload };
     },
+    setUserData: (state, action) => {
+      state.user = action.payload;
+    },
   },
 });
+export const setUser = userSlice.actions;
 export const getUserInfo = (state) => state.user.user;
 export const getUserOrders = (state) => state.user.orders;
 export default userSlice.reducer;

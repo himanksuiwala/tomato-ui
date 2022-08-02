@@ -23,43 +23,24 @@ const TempLogin = () => {
   };
   useEffect(() => {
     {
-      data.length == 0 ? console.log("") : navigate("/");
+      data.length != 0 && navigate("/");
     }
   }, []);
-
   {
-    data.length == 0 ? console.log("") : navigate("/");
+    data.length != 0 && navigate("/");
   }
   const FormToggle = () => {
     $("form").animate({ height: "toggle", opacity: "toggle" }, "slow");
   };
-  const handleLogout = async (e) => {
-    dispatch(fetchAsyncUserLogOut(data.token));
-  };
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     dispatch(fetchAsyncUserLogin(cred));
-    // try {
-    //   const response = await axios.post(
-    //     "http://localhost:3001/user/login",
-    //     cred,
-    //     {
-    //       headers: { "Content-Type": "application/json" },
-    //       withCredentials: true,
-    //     }
-    //   );
-    //   console.log(response.data);
-    //   navigate("/");
-    //   return response.data;
-    // } catch (error) {
-    //   alert(error.response.data.msg);
-    // }
-    // axios.post("http://localhost:3001/user/login", cred, {
-    //   headers: { "Content-Type": "application/json" },
-    //   withCredentials: true,
-    // });
     setUser("");
     setPwd("");
+  };
+
+  const handleLogout = async (e) => {
+    dispatch(fetchAsyncUserLogOut(data.token));
   };
 
   const handleRegisterSubmit = async (e) => {
