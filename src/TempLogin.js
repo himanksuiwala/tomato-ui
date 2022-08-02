@@ -23,12 +23,12 @@ const TempLogin = () => {
   };
   useEffect(() => {
     {
-      data.length == 0 ? console.log("Please try to re-Login") : navigate("/");
+      data.length == 0 ? console.log("") : navigate("/");
     }
   }, []);
 
   {
-    data.length == 0 ? alert("Please try to re-Login") : navigate("/");
+    data.length == 0 ? console.log("") : navigate("/");
   }
   const FormToggle = () => {
     $("form").animate({ height: "toggle", opacity: "toggle" }, "slow");
