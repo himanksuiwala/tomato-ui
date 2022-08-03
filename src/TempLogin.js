@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { userLogin } from "./features/store/cartSlice";
-// import { fetchAsyncUser } from "./features/store/storeSlice";
 import {
   fetchAsyncUserLogin,
   fetchAsyncUserLogOut,

@@ -29,6 +29,11 @@ const Cart = () => {
   };
 
   {
+    data.map((item) => {
+      itemlist.push({ item_id: item.i._id, quantity: item.qty });
+    });
+  }
+  {
     s_id &&
       itemlist &&
       (order = {
