@@ -14,8 +14,12 @@ const OrderItemContainer = () => {
           <OrderItem>
             <div className="top">
               <div className="restro-name">
-                <span className="name">{i.store_id.store_name}</span>
-                <span className="locality"> {i.store_id.city}</span>
+                {i.store_id && (
+                  <span className="name">{i.store_id.store_name}</span>
+                )}
+                {i.store_id && (
+                  <span className="locality"> {i.store_id.city}</span>
+                )}
               </div>
               <div className="content">
                 <div className="date">
