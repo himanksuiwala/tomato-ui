@@ -87,6 +87,7 @@ const TempLogin = () => {
                     >
                       <input
                         type="text"
+                        required
                         onChange={(e) => {
                           setUserName(e.target.value);
                         }}
@@ -95,6 +96,7 @@ const TempLogin = () => {
                       />
                       <input
                         type="password"
+                        required
                         onChange={(e) => setPwd(e.target.value)}
                         value={pwd}
                         placeholder="password"
@@ -103,6 +105,7 @@ const TempLogin = () => {
                         type="text"
                         onChange={(e) => setUser(e.target.value)}
                         value={user}
+                        required
                         placeholder="email address"
                       />
                       <button>create</button>
