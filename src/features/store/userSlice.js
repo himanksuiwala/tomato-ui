@@ -1,16 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+const SERVER_URL = "http://localhost:3001";
 export const fetchAsyncUserLogin = createAsyncThunk(
   "user/Login",
   async (cred) => {
-    const response = await axios.post(
-      "http://localhost:3001/user/login",
-      cred,
-      {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      }
-    );
+    const response = await axios.post(`${SERVER_URL}/user/login`, cred, {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    });
 
     return response.data;
   }
@@ -19,7 +16,7 @@ export const fetchAsyncUserLogin = createAsyncThunk(
 export const fetchAsyncUserRegister = createAsyncThunk(
   "user/Register",
   async (cred) => {
-    const response = await axios.post("http://localhost:3001/user", cred, {
+    const response = await axios.post(`${SERVER_URL}/user`, cred, {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     });
@@ -30,7 +27,7 @@ export const fetchAsyncUserRegister = createAsyncThunk(
 export const fetchAsyncUserLogOut = createAsyncThunk(
   "user/LogOut",
   async (token) => {
-    const response = await axios.get(`http://localhost:3001/user/logout`, {
+    const response = await axios.get(`${SERVER_URL}/user/logout`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     console.log(response);
@@ -41,7 +38,7 @@ export const fetchAsyncUserLogOut = createAsyncThunk(
 export const fetchAsyncUserOrder = createAsyncThunk(
   "user/orders",
   async (config) => {
-    const response = await axios.get(`http://localhost:3001/cart`, config);
+    const response = await axios.get(`${SERVER_URL}/cart`, config);
     return response.data;
   }
 );
@@ -67,7 +64,7 @@ const userSlice = createSlice({
       return { ...state, user: payload };
     },
     [fetchAsyncUserRegister.rejected]: (state) => {
-      alert("Something is wrong");
+      alert("Account with same username already exists");
       state.user = [];
     },
 

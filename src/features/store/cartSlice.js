@@ -14,10 +14,6 @@ const cartSlice = createSlice({
       state.qty += 1;
     },
 
-    userLogin: (state, action) => {
-      state.user.put(action.payload);
-    },
-
     reset: (state) => {
       state.items = [];
       state.qty = 0;
@@ -26,7 +22,7 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addProduct, reset, userLogin } = cartSlice.actions;
+export const { addProduct, reset } = cartSlice.actions;
 export const getCartQty = (state) => state.cart.qty;
 export const getCartitems = (state) => state.cart.items;
 export default cartSlice.reducer;

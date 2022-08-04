@@ -172,6 +172,6 @@ const OrderItem = styled.div`
   }
 `;
 const Container = styled.div`
-  margin: 10px 7px 1px 7px;
+  margin: 10px 15px 1px 15px;
 `;
 export default OrderItemContainer;
