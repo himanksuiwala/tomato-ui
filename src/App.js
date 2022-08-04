@@ -23,11 +23,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/redirect" element={<Navigate to="/cart" />} />
         <Route path="/delivery" element={<Delivery />} />
-        <Route path="/login" element={<TempLogin />} />
-        {/* <Route path="/delivery/:id/cart" element={<Cart />} /> */}
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/user_auth" element={<TempLogin />} />
         <Route element={<ProtectedRoutes />}>
-          <Route path="/user" element={<User />} />
+          <Route path="/user_account" element={<User />} />
+          <Route path="/cart" element={<Cart />} />
         </Route>
         <Route path="/delivery/:id" element={<Restaurant />} />
       </Routes>

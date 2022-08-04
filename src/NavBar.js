@@ -11,11 +11,14 @@ const NavBar = () => {
   const [isUser, setUser] = useState(false);
   return (
     <NavContainer>
-      <div className="title">
-        <h1>
-          <i>Tomato</i>🍅
-        </h1>
-      </div>
+      <Link to={"/"}>
+        <div className="title">
+          <h1>
+            <i>Tomato</i>🍅
+          </h1>
+        </div>
+      </Link>
+
       <Padder>
         <Link to={"/cart"}>
           <div className="cart">
@@ -25,7 +28,7 @@ const NavBar = () => {
             <p>({quantity})</p>
           </div>
         </Link>
-        <Link to={"/user"}>
+        <Link to={"/user_account"}>
           <div className="account">
             {user == undefined || user.length == 0 ? (
               <h2>Login</h2>
