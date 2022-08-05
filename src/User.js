@@ -63,18 +63,16 @@ const User = () => {
               <OrderItemContainer />
             </MyOrders>
           ) : (
-            <accountContainer>
+            <AccountContainer>
               <ProfileContainer />
-            </accountContainer>
+            </AccountContainer>
           )}
         </Body>
       </BottomContainer>
     </Container>
   );
 };
-
-const DefaultContainer = styled.div``;
-const Account = styled.div``;
+const AccountContainer = styled.div``;
 const MyOrders = styled.div``;
 const Body = styled.div``;
 const OptionsContainer = styled.div`
