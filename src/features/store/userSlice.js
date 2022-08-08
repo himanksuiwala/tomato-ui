@@ -25,16 +25,6 @@ export const fetchAsyncUserRegister = createAsyncThunk(
     return response.data;
   }
 );
-export const fetchAsyncUserLogOut = createAsyncThunk(
-  "user/LogOut",
-  async (token) => {
-    const response = await axios.get(`${SERVER_URL}/user/logout`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    console.log(response);
-    return response.data;
-  }
-);
 
 export const fetchAsyncUserOrder = createAsyncThunk(
   "user/orders",
@@ -52,6 +42,27 @@ export const fetchAsyncStoreLogin = createAsyncThunk(
       withCredentials: true,
     });
     console.log(response.data);
+    return response.data;
+  }
+);
+
+export const fetchAsyncUserLogOut = createAsyncThunk(
+  "user/LogOut",
+  async (token) => {
+    const response = await axios.get(`${SERVER_URL}/user/logout`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(response);
+    return response.data;
+  }
+);
+export const fetchAsyncStoreLogout = createAsyncThunk(
+  "store/Logout",
+  async (token) => {
+    const response = await axios.get(`${SERVER_URL}/store/logout`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(response);
     return response.data;
   }
 );
@@ -79,6 +90,14 @@ const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
+    [fetchAsyncStoreLogout.fulfilled]: (state, { payload }) => {
+      state.store = [];
+      console.log("Store Logged ");
+    },
+    [fetchAsyncStoreLogout.rejected]: (state, error) => {
+      console.log(error);
+    },
+
     [fetchAsyncStoreRegister.fulfilled]: (state, { payload }) => {
       return { ...state, store: payload };
     },
@@ -121,6 +140,7 @@ const userSlice = createSlice({
     },
   },
 });
+export const getStoreData = (state) => state.user.store;
 export const setUser = userSlice.actions;
 export const getUserInfo = (state) => state.user.user;
 export const getUserOrders = (state) => state.user.orders;

@@ -16,6 +16,8 @@ import User from "./User";
 import TempLogin from "./TempLogin";
 import StoreLogin from "./StoreLogin";
 import ProtectedRoutes from "./ProtectedRoutes";
+import StoreDashboard from "./StoreDashboard";
+import ProtectedStoreRoutes from "./ProtectedStoreRoutes";
 
 function App() {
   return (
@@ -27,10 +29,12 @@ function App() {
         <Route path="/redirect" element={<Navigate to="/cart" />} />
         <Route path="/delivery" element={<Delivery />} />
         <Route path="/user_auth" element={<TempLogin />} />
-
         <Route element={<ProtectedRoutes />}>
           <Route path="/user_account" element={<User />} />
           <Route path="/cart" element={<Cart />} />
+        </Route>
+        <Route element={<ProtectedStoreRoutes />}>
+          <Route path="/store_dashboard" element={<StoreDashboard />} />
         </Route>
         <Route path="/delivery/:id" element={<Restaurant />} />
       </Routes>
