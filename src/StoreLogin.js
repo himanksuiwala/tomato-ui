@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import $ from "jquery";
+import {
+  fetchAsyncStoreLogin,
+  fetchAsyncStoreRegister,
+} from "./features/store/userSlice";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 const StoreLogin = () => {
   const BACKDROP_IMAGE_URL = `https://ik.imagekit.io/1aafk6gx3bk/louis-hansel-wVoP_Q2Bg_A-unsplash_xDnXz45aA.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1659644493814`;
 
+  const dispatch = useDispatch();
   const [form, setForm] = useState(true);
   const [seating, setSeating] = useState("seating_true");
   const [delivery, setDelivery] = useState("food_delivery_true");
@@ -30,10 +37,33 @@ const StoreLogin = () => {
   };
   const formSubmitHandle = (e) => {
     e.preventDefault();
-    console.log("SUBMIT", store_reg_obj);
+    alert("pr");
+    // dispatch(fetchAsyncStoreRegister(store_reg_obj));
+    setSeating("seating_true");
+    setTakeaway("takeaway_true");
+    setDelivery("food_delivery_true");
+    setRest_mail("");
+    setPass("");
+    setRest_name("");
+    setRest_add("");
+    setRest_city("");
+    setRest_contact("");
+    setRest_cuisine("");
   };
   const ProceedHandler = (e) => {
     setForm(false);
+  };
+
+  const login_cred = {
+    email: rest_mail,
+    password: pass,
+  };
+
+  const LoginHandler = (e) => {
+    e.preventDefault();
+    dispatch(fetchAsyncStoreLogin(login_cred));
+    setRest_mail("");
+    setPass("");
   };
 
   const store_reg_obj = {
@@ -73,6 +103,7 @@ const StoreLogin = () => {
                         <input
                           type="email"
                           required
+                          value={rest_mail}
                           onChange={(e) => {
                             setRest_mail(e.target.value);
                           }}
@@ -81,6 +112,7 @@ const StoreLogin = () => {
                         <input
                           type="password"
                           required
+                          value={pass}
                           onChange={(e) => {
                             setPass(e.target.value);
                           }}
@@ -95,10 +127,14 @@ const StoreLogin = () => {
                           </a>
                         </p>
                       </form>
-                      <form className="login-form">
+                      <form onSubmit={LoginHandler} className="login-form">
                         <input
                           type="email"
                           id="username"
+                          value={rest_mail}
+                          onChange={(e) => {
+                            setRest_mail(e.target.value);
+                          }}
                           autoComplete="off"
                           required
                           placeholder="username"
@@ -106,6 +142,10 @@ const StoreLogin = () => {
                         <input
                           type="password"
                           id="password"
+                          value={pass}
+                          onChange={(e) => {
+                            setPass(e.target.value);
+                          }}
                           required
                           placeholder="password"
                         />
@@ -132,6 +172,7 @@ const StoreLogin = () => {
                           className="text-field"
                           type="text"
                           required
+                          value={rest_name}
                           onChange={(e) => {
                             setRest_name(e.target.value);
                           }}
@@ -145,6 +186,7 @@ const StoreLogin = () => {
                         <input
                           className="text-field"
                           type="text"
+                          value={rest_add}
                           onChange={(e) => {
                             setRest_add(e.target.value);
                           }}
@@ -159,6 +201,7 @@ const StoreLogin = () => {
                         <input
                           type="text"
                           required
+                          value={rest_city}
                           onChange={(e) => {
                             setRest_city(e.target.value);
                           }}
@@ -173,6 +216,7 @@ const StoreLogin = () => {
                         <input
                           type="text"
                           required
+                          value={rest_contact}
                           onChange={(e) => {
                             setRest_contact(e.target.value);
                           }}
@@ -187,6 +231,7 @@ const StoreLogin = () => {
                         <input
                           type="text"
                           required
+                          value={rest_cuisine}
                           onChange={(e) => {
                             setRest_cuisine(e.target.value);
                           }}
@@ -403,9 +448,6 @@ const FormContainer = styled.div`
     text-align: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   }
-  .input-container {
-    display: flex;
-  }
   .form input {
     font-family: "Roboto", sans-serif;
     border-radius: 20px;
@@ -413,7 +455,7 @@ const FormContainer = styled.div`
     background: #f2f2f2;
     width: 100%;
     border: 0;
-    ${"" /* margin: 0px 0px 15px; */}
+    margin: 0 0 15px;
     padding: 15px;
     box-sizing: border-box;
     font-size: 14px;

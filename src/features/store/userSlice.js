@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const SERVER_URL = "http://localhost:3001";
+
 export const fetchAsyncUserLogin = createAsyncThunk(
   "user/Login",
   async (cred) => {
@@ -43,9 +44,34 @@ export const fetchAsyncUserOrder = createAsyncThunk(
   }
 );
 
+export const fetchAsyncStoreLogin = createAsyncThunk(
+  "store/Login",
+  async (config) => {
+    const response = await axios.post(`${SERVER_URL}/store/login`, config, {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    });
+    console.log(response.data);
+    return response.data;
+  }
+);
+
+export const fetchAsyncStoreRegister = createAsyncThunk(
+  "store/Registers",
+  async (config) => {
+    const response = await axios.post(`${SERVER_URL}/store`, config, {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    });
+    console.log(response.data);
+    return response.data;
+  }
+);
+
 const initialState = {
   user: [],
   orders: [],
+  store: [],
 };
 
 const userSlice = createSlice({
@@ -53,6 +79,21 @@ const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
+    [fetchAsyncStoreRegister.fulfilled]: (state, { payload }) => {
+      return { ...state, store: payload };
+    },
+    [fetchAsyncStoreRegister.rejected]: (state) => {
+      alert("Please Check Your Username & Password.");
+      state.store = [];
+    },
+
+    [fetchAsyncStoreLogin.fulfilled]: (state, { payload }) => {
+      return { ...state, store: payload };
+    },
+    [fetchAsyncStoreLogin.rejected]: (state) => {
+      alert("Please Check Your Username & Password.");
+      state.store = [];
+    },
     [fetchAsyncUserLogin.fulfilled]: (state, { payload }) => {
       return { ...state, user: payload };
     },
@@ -67,7 +108,6 @@ const userSlice = createSlice({
       alert("Account with same username already exists");
       state.user = [];
     },
-
     [fetchAsyncUserLogOut.fulfilled]: (state, { payload }) => {
       state.user = [];
       state.orders = [];
