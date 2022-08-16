@@ -2,11 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { fetchAsyncStoreMenu } from "./features/store/storeSlice";
 import {
   fetchAsyncStoreLogout,
   fetchAsyncStoreOrders,
   getStoreData,
 } from "./features/store/userSlice";
+import MenuContainer from "./MenuContainer";
 import OrderItemContainer from "./OrderItemContainer";
 const StoreDashboard = () => {
   const dispatch = useDispatch();
@@ -15,7 +17,7 @@ const StoreDashboard = () => {
   const [accountContainer, SetaccountContainer] = useState(false);
 
   const store_data = useSelector(getStoreData);
-  console.log(store_data.token);
+  console.log(store_data);
   const logOutHandler = async (e) => {
     dispatch(fetchAsyncStoreLogout(store_data.token));
   };
@@ -36,6 +38,7 @@ const StoreDashboard = () => {
   };
   useEffect(() => {
     dispatch(fetchAsyncStoreOrders(config));
+    dispatch(fetchAsyncStoreMenu(store_data.checkforStore._id));
   }, []);
 
   return (
@@ -52,7 +55,7 @@ const StoreDashboard = () => {
             <h1>Orders</h1>
           </div>
           <div onClick={AccountclickHandler} className="Account">
-            <h1>Profile</h1>
+            <h1>Menu</h1>
           </div>
         </OptionsContainer>
         <hr />
@@ -63,7 +66,7 @@ const StoreDashboard = () => {
             </MyOrders>
           ) : (
             <AccountContainer>
-              <p>Account</p>
+              <MenuContainer location={"store"} />
             </AccountContainer>
           )}
         </Body>

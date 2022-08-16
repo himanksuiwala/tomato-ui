@@ -21,7 +21,6 @@ export const fetchAsyncUserRegister = createAsyncThunk(
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     });
-    console.log(response.data);
     return response.data;
   }
 );
@@ -41,7 +40,6 @@ export const fetchAsyncStoreLogin = createAsyncThunk(
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     });
-    console.log(response.data);
     return response.data;
   }
 );
@@ -52,7 +50,6 @@ export const fetchAsyncUserLogOut = createAsyncThunk(
     const response = await axios.get(`${SERVER_URL}/user/logout`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(response);
     return response.data;
   }
 );
@@ -62,7 +59,6 @@ export const fetchAsyncStoreLogout = createAsyncThunk(
     const response = await axios.get(`${SERVER_URL}/store/logout`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(response);
     return response.data;
   }
 );
@@ -74,7 +70,6 @@ export const fetchAsyncStoreRegister = createAsyncThunk(
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     });
-    console.log(response.data);
     return response.data;
   }
 );
@@ -83,7 +78,6 @@ export const fetchAsyncStoreOrders = createAsyncThunk(
   "store/orders",
   async (config) => {
     const response = await axios.get(`${SERVER_URL}/storeOrders`, config);
-    console.log(response.data);
     return response.data;
   }
 );
