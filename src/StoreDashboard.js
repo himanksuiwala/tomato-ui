@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
   fetchAsyncStoreLogout,
+  fetchAsyncStoreOrders,
   getStoreData,
 } from "./features/store/userSlice";
+import OrderItemContainer from "./OrderItemContainer";
 const StoreDashboard = () => {
   const dispatch = useDispatch();
   let defaultState = true;
@@ -13,7 +15,7 @@ const StoreDashboard = () => {
   const [accountContainer, SetaccountContainer] = useState(false);
 
   const store_data = useSelector(getStoreData);
-
+  console.log(store_data.token);
   const logOutHandler = async (e) => {
     dispatch(fetchAsyncStoreLogout(store_data.token));
   };
@@ -27,10 +29,19 @@ const StoreDashboard = () => {
     defaultState = false;
     setOrdersContainer(false);
   };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${store_data.token}`,
+    },
+  };
+  useEffect(() => {
+    dispatch(fetchAsyncStoreOrders(config));
+  }, []);
+
   return (
     <Container>
       <Header>
-        <h1>My Account</h1>
+        <h1>Store Dashboard</h1>
         <div className="logout" onClick={logOutHandler}>
           <h3>Logout</h3>
         </div>
@@ -38,7 +49,7 @@ const StoreDashboard = () => {
       <BottomContainer>
         <OptionsContainer>
           <div onClick={OrderclickHandler} className="orders">
-            <h1>Your Orders</h1>
+            <h1>Orders</h1>
           </div>
           <div onClick={AccountclickHandler} className="Account">
             <h1>Profile</h1>
@@ -48,7 +59,7 @@ const StoreDashboard = () => {
         <Body>
           {ordersContainer ? (
             <MyOrders>
-              <p>Orders</p>
+              <OrderItemContainer />
             </MyOrders>
           ) : (
             <AccountContainer>

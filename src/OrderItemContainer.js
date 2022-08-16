@@ -1,26 +1,38 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { getUserOrders } from "./features/store/userSlice";
+import { getUserOrders, getStoreOrder } from "./features/store/userSlice";
 var moment = require("moment");
 var momentutc = require("moment-timezone");
-
 const OrderItemContainer = () => {
-  const order = useSelector(getUserOrders);
+  const fetchedUser = useSelector(getUserOrders);
+  const fetchedStore = useSelector(getStoreOrder);
+  let order = [];
+  {
+    fetchedStore.length ? (order = fetchedStore) : (order = fetchedUser);
+  }
+
   return (
     <Container>
       {order.map((i) => {
         return (
           <OrderItem>
             <div className="top">
-              <div className="restro-name">
-                {i.store_id && (
-                  <span className="name">{i.store_id.store_name}</span>
-                )}
-                {i.store_id && (
-                  <span className="locality"> {i.store_id.city}</span>
-                )}
-              </div>
+              {fetchedStore.length ? (
+                <div className="restro-name">
+                  <h3>{"> "}Ordered Items</h3>
+                </div>
+              ) : (
+                <div className="restro-name">
+                  {i.store_id && (
+                    <span className="name">{i.store_id.store_name}</span>
+                  )}
+                  {i.store_id && (
+                    <span className="locality"> {i.store_id.city}</span>
+                  )}
+                </div>
+              )}
+
               <div className="content">
                 <div className="date">
                   <div className="order-tag">
@@ -63,12 +75,25 @@ const OrderItemContainer = () => {
                   );
                 })}
               </div>
-              <div className="address">
-                <div className="add-tag">
-                  <span className="add-tag-add">Delivery Address:</span>
-                  <span>{i.delivery_address}</span>
+
+              {fetchedStore.length ? (
+                <div className="address">
+                  <div className="add-tag">
+                    <div className="add-tag-add">Ordered by:</div>
+                    <span>{i.user_id.name}</span>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <Address>
+                  <div className="address">
+                    <div className="add-tag">
+                      <span className="add-tag-add">Delivery Address:</span>
+                      <span>{i.delivery_address}</span>
+                    </div>
+                  </div>
+                </Address>
+              )}
+
               <div className="order-total">
                 <div className="order-payment">
                   <div className="order-payment-tag">
@@ -97,10 +122,16 @@ const OrderItemContainer = () => {
     </Container>
   );
 };
+const Address = styled.div``;
+const StoreOrder = styled.div``;
+const UserOrder = styled.div``;
 
 const OrderItem = styled.div`
   margin: 10px 0px 7px 0px;
-
+  .add-tag-add {
+    display: flex;
+    justify-content: center;
+  }
   .address {
     .add-tag-add {
       font-weight: 750;

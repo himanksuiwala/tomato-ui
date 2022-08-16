@@ -79,10 +79,20 @@ export const fetchAsyncStoreRegister = createAsyncThunk(
   }
 );
 
+export const fetchAsyncStoreOrders = createAsyncThunk(
+  "store/orders",
+  async (config) => {
+    const response = await axios.get(`${SERVER_URL}/storeOrders`, config);
+    console.log(response.data);
+    return response.data;
+  }
+);
+
 const initialState = {
   user: [],
   orders: [],
   store: [],
+  store_order: [],
 };
 
 const userSlice = createSlice({
@@ -90,8 +100,16 @@ const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
+    [fetchAsyncStoreOrders.fulfilled]: (state, { payload }) => {
+      console.log("Fetched");
+      return { ...state, store_order: payload };
+    },
+    [fetchAsyncStoreOrders.rejected]: () => {
+      console.log("error");
+    },
     [fetchAsyncStoreLogout.fulfilled]: (state, { payload }) => {
       state.store = [];
+      state.store_order = [];
       console.log("Store Logged ");
     },
     [fetchAsyncStoreLogout.rejected]: (state, error) => {
@@ -140,6 +158,7 @@ const userSlice = createSlice({
     },
   },
 });
+export const getStoreOrder = (state) => state.user.store_order;
 export const getStoreData = (state) => state.user.store;
 export const setUser = userSlice.actions;
 export const getUserInfo = (state) => state.user.user;

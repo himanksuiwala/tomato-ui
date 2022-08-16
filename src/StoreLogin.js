@@ -6,7 +6,6 @@ import {
   fetchAsyncStoreRegister,
 } from "./features/store/userSlice";
 import { useDispatch } from "react-redux";
-import axios from "axios";
 const StoreLogin = () => {
   const BACKDROP_IMAGE_URL = `https://ik.imagekit.io/1aafk6gx3bk/louis-hansel-wVoP_Q2Bg_A-unsplash_xDnXz45aA.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1659644493814`;
 
