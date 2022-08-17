@@ -10,6 +10,18 @@ export const fetchAsyncStores = createAsyncThunk(
   }
 );
 
+// export const AsyncAddItem = createAsyncThunk(
+//   "store/addItem",
+//   async (config) => {
+//     const response = await axios.post(`${SERVER_URL}/item/add`, config, {
+//       headers: { "Content-Type": "application/json" },
+//       withCredentials: true,
+//     });
+//     console.log(response);
+//     return response.data;
+//   }
+// );
+
 export const fetchAsyncStoreData = createAsyncThunk(
   "store/Data",
   async (id) => {
@@ -41,6 +53,9 @@ const storeSlice = createSlice({
     },
   },
   extraReducers: {
+    // [AsyncAddItem.rejected]: () => {
+    //   console.log("er");
+    // },
     [fetchAsyncStores.fulfilled]: (state, { payload }) => {
       console.log("Fetched");
       return { ...state, storelist: payload };

@@ -16,6 +16,7 @@ const MenuContainer = (props) => {
   console.log(from_store);
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
+  
   const submitHandler = (e, i) => {
     dispatch(addProduct({ i, qty }));
     setQty(1);
@@ -115,11 +116,11 @@ const MenuItem = styled.div`
 `;
 const ContainerHeader = styled.div``;
 const Menu = styled.div`
-  margin-top: 20px;
+  margin-top: 10px;
   margin-left: 5px;
 `;
 const Container = styled.div`
-  margin-top: 50px;
+  margin-top: 30px;
   margin-bottom: 100px;
   margin-left: 5px;
   font-family: "Inter", sans-serif;
