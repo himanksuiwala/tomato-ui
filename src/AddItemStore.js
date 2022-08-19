@@ -19,6 +19,8 @@ const AddItemStore = (props) => {
       .catch((e) => {
         console.log(e);
       });
+    // alert("Item Added Successfully !");
+    window.location.reload(true);
     props.flag("cancel");
   };
   const submitHandler = (e) => {
@@ -118,31 +120,38 @@ const AddButton = styled.div`
 const Header = styled.div`
   display: flex;
   justify-content: center;
-  margin: 10px;
+  margin: 30px;
 `;
 const InputContainer = styled.div`
   .item-input {
     margin: 20px 10px 20px 10px;
   }
+  margin: 2px 15px 2px 15px;
   .itemName {
+    border-radius: 7px;
     height: 30px;
+
     width: 250px;
   }
 `;
 const Container = styled.div`
-  border-radius: 17px;
+  border-radius: 7px;
   .close {
     display: flex;
     flex-direction: row-reverse;
     padding-right: 10px;
   }
+  background: pink;
+  position: fixed;
+  left: 50%;
+  margin-top: 100px;
+  transform: translate(-50%, 0);
+
   ${
-    "" /* height: 500px;
-  width: 300px; */
+    "" /* margin-top: 400px;
+  margin-left: 450px;
+  position: fixed; */
   }
-  background:red;
-  margin-top: 400px;
   z-index: 1;
-  position: absolute;
 `;
 export default AddItemStore;

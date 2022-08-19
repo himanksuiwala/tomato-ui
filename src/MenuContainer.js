@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { MdRestaurantMenu } from "react-icons/md";
 import { getStoreMenu } from "./features/store/storeSlice";
 import { addProduct } from "./features/store/cartSlice";
+import axios from "axios";
 <style>
   @import
   url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
@@ -13,14 +14,28 @@ const MenuContainer = (props) => {
   {
     props.location === "store" ? (from_store = true) : (from_store = false);
   }
-  console.log(from_store);
+
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
-  
+  let auth_token = props.token;
   const submitHandler = (e, i) => {
     dispatch(addProduct({ i, qty }));
     setQty(1);
     e.preventDefault();
+  };
+  const removeItem = async (item) => {
+    const response = await axios
+      .delete(`http://localhost:3001/item/${item}`, {
+        headers: { Authorization: `Bearer ${auth_token}` },
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+
+    window.location.reload(false);
+  };
+  const itemDeleteHandler = (e, item) => {
+    removeItem(item);
   };
   const data = useSelector(getStoreMenu);
   return (
@@ -59,6 +74,19 @@ const MenuContainer = (props) => {
                         {i.price}
                       </p>
                     </div>
+                    {from_store ? (
+                      <div
+                        onClick={(e) => itemDeleteHandler(e, i._id)}
+                        className="delete-item"
+                      >
+                        <h4>
+                          <u>Delete</u>
+                        </h4>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+
                     {!from_store ? (
                       <div>
                         <form
@@ -95,6 +123,15 @@ const MenuContainer = (props) => {
   );
 };
 const MenuItem = styled.div`
+  .delete-item {
+    margin-top: 8px;
+  }
+  ${
+    "" /* .price {
+    display: flex;
+    justify-content: center;
+  } */
+  }
   .qty {
     input {
       width: 40px;

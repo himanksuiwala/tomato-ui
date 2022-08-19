@@ -58,7 +58,7 @@ const StoreDashboard = () => {
     <Container>
       <AddItem>{addItemInput && <AddItemStore flag={fromChild} />}</AddItem>
       <Header>
-        <h1>Store Dashboard</h1>
+        <h1>Dashboard</h1>
         <div className="logout" onClick={logOutHandler}>
           <h3>Logout</h3>
         </div>
@@ -81,9 +81,9 @@ const StoreDashboard = () => {
           ) : (
             <AccountContainer>
               <h2 className="add-item" onClick={AddItemHandler}>
-                Add/Remove Items
+                {">>"}Add Item
               </h2>
-              <MenuContainer location={"store"} />
+              <MenuContainer location={"store"} token={store_data.token} />
             </AccountContainer>
           )}
         </Body>
