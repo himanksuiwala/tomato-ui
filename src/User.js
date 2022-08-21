@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Spinner from "react-spinkit";
 import styled from "styled-components";
 import {
   fetchAsyncUserLogOut,
@@ -12,7 +13,8 @@ const User = () => {
   const data = useSelector(getUserInfo);
   const dispatch = useDispatch();
   let defaultState = true;
-  const [ordersContainer, setOrdersContainer] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [ordersContainer, setOrdersContainer] = useState(true);
   const [accountContainer, SetaccountContainer] = useState(false);
   const OrderclickHandler = async (e) => {
     setOrdersContainer(true);
@@ -37,8 +39,18 @@ const User = () => {
 
   useEffect(() => {
     dispatch(fetchAsyncUserOrder(config));
+    setTimeout(() => setLoading(false), 3000);
   }, []);
 
+  while (loading) {
+    return (
+      <AppLoading>
+        <AppLoadingContents>
+          <Spinner name="wordpress" fadeIn="none" />
+        </AppLoadingContents>
+      </AppLoading>
+    );
+  }
   return (
     <Container>
       <Header>
@@ -52,9 +64,9 @@ const User = () => {
           <div onClick={OrderclickHandler} className="orders">
             <h1>Your Orders</h1>
           </div>
-          <div onClick={AccountclickHandler} className="Account">
+          {/* <div onClick={AccountclickHandler} className="Account">
             <h1>Profile</h1>
-          </div>
+          </div> */}
         </OptionsContainer>
         <hr />
         <Body>
@@ -63,9 +75,10 @@ const User = () => {
               <OrderItemContainer />
             </MyOrders>
           ) : (
-            <AccountContainer>
+            ""
+            /* <AccountContainer>
               <ProfileContainer />
-            </AccountContainer>
+            </AccountContainer> */
           )}
         </Body>
       </BottomContainer>
@@ -99,6 +112,20 @@ const Header = styled.div`
   h1 {
     font-size: 80px;
   }
+`;
+const AppLoading = styled.div`
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  width: 100%;
+`;
+const AppLoadingContents = styled.div`
+  text-align: center;
+  padding-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Container = styled.div`

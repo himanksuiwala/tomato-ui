@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   fetchAsyncStoreData,
@@ -11,6 +11,8 @@ import { fetchAsyncStoreMenu } from "./features/store/storeSlice";
 import MenuContainer from "./MenuContainer";
 import { getStoreMenu } from "./features/store/storeSlice";
 import Cart from "./Cart";
+
+import Spinner from "react-spinkit";
 <style>
   @import
   url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
@@ -18,12 +20,22 @@ import Cart from "./Cart";
 const Restaurant = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     dispatch(fetchAsyncStoreData(id));
     dispatch(fetchAsyncStoreMenu(id));
+    setTimeout(() => setLoading(false), 2500);
   }, []);
   const data = useSelector(getStoreData);
-  // const as = useSelector(getStoreMenu);
+  while (loading) {
+    return (
+      <AppLoading>
+        <AppLoadingContents>
+          <Spinner name="wordpress" fadeIn="none" />
+        </AppLoadingContents>
+      </AppLoading>
+    );
+  }
   return (
     <Container>
       <RestaurantHeader>
@@ -75,6 +87,20 @@ const Restaurant = () => {
     </Container>
   );
 };
+const AppLoading = styled.div`
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  width: 100%;
+`;
+const AppLoadingContents = styled.div`
+  text-align: center;
+  padding-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 const Top = styled.div`
   ${"" /* padding: 20px; */}
 `;

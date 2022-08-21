@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import $ from "jquery";
+import { useNavigate } from "react-router-dom";
 import {
   fetchAsyncStoreLogin,
   fetchAsyncStoreRegister,
+  getStoreData,
 } from "./features/store/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const StoreLogin = () => {
   const BACKDROP_IMAGE_URL = `https://ik.imagekit.io/1aafk6gx3bk/louis-hansel-wVoP_Q2Bg_A-unsplash_xDnXz45aA.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1659644493814`;
-
+  const fetched_store = useSelector(getStoreData);
   const dispatch = useDispatch();
+  let navigate = useNavigate();
   const [form, setForm] = useState(true);
   const [seating, setSeating] = useState("seating_true");
   const [delivery, setDelivery] = useState("food_delivery_true");
@@ -21,6 +24,14 @@ const StoreLogin = () => {
   const [rest_city, setRest_city] = useState("");
   const [rest_contact, setRest_contact] = useState("");
   const [rest_cuisine, setRest_cuisine] = useState("");
+
+  
+  useEffect(() => {
+    fetched_store.length != 0 && navigate("/store_dashboard");
+  }, []);
+  {
+    fetched_store.length != 0 && navigate("/store_dashboard");
+  }
 
   const FormToggle = () => {
     $("form").animate({ height: "toggle", opacity: "toggle" }, "slow");

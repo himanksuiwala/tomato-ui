@@ -37,6 +37,7 @@ const StoreComponent = () => {
     </Container>
   );
 };
+
 const Content = styled.div`
   .store-category {
     color: grey;

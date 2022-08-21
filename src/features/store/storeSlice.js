@@ -9,7 +9,6 @@ export const fetchAsyncStores = createAsyncThunk(
     return response.data;
   }
 );
-
 // export const AsyncAddItem = createAsyncThunk(
 //   "store/addItem",
 //   async (config) => {

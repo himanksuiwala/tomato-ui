@@ -3,9 +3,6 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import StoreComponent from "./StoreComponent";
 const RestContainer = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {}, []);
-
   return (
     <Container>
       <StoreComponent />
@@ -18,4 +15,5 @@ const Container = styled.div`
   padding: 7px;
   margin: 5px 20px 0px 25px;
 `;
+
 export default RestContainer;

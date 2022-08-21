@@ -2,7 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import Spinner from "react-spinkit";
+import { useNavigate } from "react-router-dom";
 import AddItemStore from "./AddItemStore";
+import useBackListener from "./useBackListener";
 import { fetchAsyncStoreMenu } from "./features/store/storeSlice";
 import {
   fetchAsyncStoreLogout,
@@ -14,11 +17,19 @@ import OrderItemContainer from "./OrderItemContainer";
 const StoreDashboard = () => {
   const dispatch = useDispatch();
   let defaultState = true;
+  let navigate = useNavigate();
   const [ordersContainer, setOrdersContainer] = useState(false);
   const [accountContainer, SetaccountContainer] = useState(false);
   const [addItemInput, setAddItemInput] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const store_data = useSelector(getStoreData);
-  console.log(store_data);
+
+  useBackListener(({ location }) => {
+    console.log("Navigated Back", { location });
+    navigate("/", { replace: true });
+  });
+
   const logOutHandler = async (e) => {
     dispatch(fetchAsyncStoreLogout(store_data.token));
   };
@@ -46,6 +57,7 @@ const StoreDashboard = () => {
   useEffect(() => {
     dispatch(fetchAsyncStoreOrders(config));
     dispatch(fetchAsyncStoreMenu(store_data.checkforStore._id));
+    setTimeout(() => setLoading(false), 2500);
   }, []);
 
   const fromChild = (data) => {
@@ -53,7 +65,15 @@ const StoreDashboard = () => {
       AddItemHandler();
     }
   };
-
+  while (loading) {
+    return (
+      <AppLoading>
+        <AppLoadingContents>
+          <Spinner name="wordpress" fadeIn="none" />
+        </AppLoadingContents>
+      </AppLoading>
+    );
+  }
   return (
     <Container>
       <AddItem>{addItemInput && <AddItemStore flag={fromChild} />}</AddItem>
@@ -126,7 +146,20 @@ const Header = styled.div`
     font-size: 80px;
   }
 `;
-
+const AppLoading = styled.div`
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  width: 100%;
+`;
+const AppLoadingContents = styled.div`
+  text-align: center;
+  padding-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 const Container = styled.div`
 
 font-family: "Inter", sans-serif;

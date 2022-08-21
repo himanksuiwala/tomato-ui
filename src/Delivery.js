@@ -1,6 +1,7 @@
-import React,{useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import Spinner from "react-spinkit";
 import { fetchAsyncStores } from "./features/store/storeSlice";
 import RestContainer from "./RestContainer";
 <style>
@@ -8,10 +9,22 @@ import RestContainer from "./RestContainer";
   url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
 </style>;
 const Delivery = () => {
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-  useEffect(()=>{
-    dispatch(fetchAsyncStores())
-  },[])
+  useEffect(() => {
+    dispatch(fetchAsyncStores());
+    setTimeout(() => setLoading(false), 2500);
+  }, []);
+
+  while (loading) {
+    return (
+      <AppLoading>
+        <AppLoadingContents>
+          <Spinner name="wordpress" fadeIn="none" />
+        </AppLoadingContents>
+      </AppLoading>
+    );
+  }
   return (
     <>
       <Header>
@@ -93,5 +106,19 @@ const Header = styled.div`
     top: 8px;
     left: 16px;
   }
+`;
+const AppLoading = styled.div`
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  width: 100%;
+`;
+const AppLoadingContents = styled.div`
+  text-align: center;
+  padding-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 export default Delivery;

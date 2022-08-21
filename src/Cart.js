@@ -5,12 +5,14 @@ import styled from "styled-components";
 import { getCartitems, reset } from "./features/store/cartSlice";
 import { getStoreData } from "./features/store/storeSlice";
 import { getUserInfo } from "./features/store/userSlice";
+import Spinner from "react-spinkit";
 <style>
   @import
   url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
 </style>;
 const Cart = () => {
   const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [payment, setPayment] = useState();
   const dispatch = useDispatch();
   const data = useSelector(getCartitems);
@@ -71,9 +73,20 @@ const Cart = () => {
       data.map((item) => {
         sum += item.i.price * item.qty;
       });
+      setTimeout(() => setLoading(false), 3000);
     }
     setTotal(sum);
   }, []);
+
+  while (loading) {
+    return (
+      <AppLoading>
+        <AppLoadingContents>
+          <Spinner name="wordpress" fadeIn="none" />
+        </AppLoadingContents>
+      </AppLoading>
+    );
+  }
   return (
     <Container>
       <CartHeader>
@@ -185,6 +198,20 @@ const Cart = () => {
   );
 };
 
+const AppLoading = styled.div`
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  width: 100%;
+`;
+const AppLoadingContents = styled.div`
+  text-align: center;
+  padding-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 const ClearCart = styled.div`
   font-size: 25px;
   text-decoration: underline;
