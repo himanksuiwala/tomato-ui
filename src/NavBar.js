@@ -4,13 +4,11 @@ import { MdShoppingCart } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { getCartQty } from "./features/store/cartSlice";
 import { Link, Navigate } from "react-router-dom";
-import { getUserInfo } from "./features/store/userSlice";
-const NavBar = () => {
+import { getStoreData, getUserInfo } from "./features/store/userSlice";
+const NavBar = ({ is_Store }) => {
   const quantity = useSelector(getCartQty);
   const user = useSelector(getUserInfo);
-  const [isUser, setUser] = useState(false);
-
-  console.log("loc", window.location);
+  const store_data = useSelector(getStoreData);
   return (
     <NavContainer>
       <Link to={"/"}>
@@ -22,23 +20,33 @@ const NavBar = () => {
       </Link>
 
       <Padder>
-        <Link to={"/cart"}>
-          <div className="cart">
-            <h1>
-              <MdShoppingCart />
-            </h1>
-            <p>({quantity})</p>
-          </div>
-        </Link>
-        <Link to={"/user_account"}>
-          <div className="account">
-            {user == undefined || user.length == 0 ? (
-              <h2>Login</h2>
-            ) : (
-              <h2>My Account</h2>
-            )}
-          </div>
-        </Link>
+        {store_data.token ? (
+          <Link to={"/store_dashboard"}>
+            <div className="store_dashboard">
+              <h2>Dashboard</h2>
+            </div>
+          </Link>
+        ) : (
+          <>
+            <Link to={"/cart"}>
+              <div className="cart">
+                <h1>
+                  <MdShoppingCart />
+                </h1>
+                <p>({quantity})</p>
+              </div>
+            </Link>
+            <Link to={"/user_account"}>
+              <div className="account">
+                {user == undefined || user.length == 0 ? (
+                  <h2>Login</h2>
+                ) : (
+                  <h2>My Account</h2>
+                )}
+              </div>
+            </Link>
+          </>
+        )}
       </Padder>
     </NavContainer>
   );
@@ -48,10 +56,14 @@ const Padder = styled.div`
   .account {
     padding-left: 50px;
     margin-bottom: 5px 2px 10px 2px;
+    h2 {
+      font-weight: 500;
+      margin-top: 15px;
+    }
   }
-  h2 {
-    font-weight: 500;
-    margin-top: 15px;
+
+  .store_dashboard {
+    font-size: 20px;
   }
 `;
 const NavContainer = styled.nav`

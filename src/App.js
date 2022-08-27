@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Home from "./Home";
 import NavBar from "./NavBar";
 import Delivery from "./Delivery";
@@ -20,9 +20,21 @@ import StoreDashboard from "./StoreDashboard";
 import ProtectedStoreRoutes from "./ProtectedStoreRoutes";
 
 function App() {
+  const [isStore, setisStore] = useState(false);
+  useEffect(() => {
+    if (
+      window.location.pathname == "/store_dashboard" ||
+      window.location.pathname == "/store_auth"
+    ) {
+      setisStore(true);
+    }
+  }, []);
+
+  console.log("loc", window.location);
+  console.log(isStore);
   return (
     <>
-      <NavBar />
+      <NavBar is_Store={isStore} />
       <Routes>
         <Route path="/store_auth" element={<StoreLogin />} />
         <Route path="/" element={<Home />} />

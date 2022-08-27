@@ -33,6 +33,7 @@ const StoreDashboard = () => {
 
   const logOutHandler = async (e) => {
     dispatch(fetchAsyncStoreLogout(store_data.token));
+    navigate("/", { replace: true });
   };
   const OrderclickHandler = async (e) => {
     setOrdersContainer(true);
