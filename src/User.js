@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-spinkit";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
   fetchAsyncUserLogOut,
@@ -8,10 +9,12 @@ import {
   getUserInfo,
 } from "./features/store/userSlice";
 import OrderItemContainer from "./OrderItemContainer";
+import useBackListener from "./useBackListener";
 import ProfileContainer from "./ProfileContainer";
 const User = () => {
   const data = useSelector(getUserInfo);
   const dispatch = useDispatch();
+  let navigate = useNavigate();
   let defaultState = true;
   const [loading, setLoading] = useState(true);
   const [ordersContainer, setOrdersContainer] = useState(true);
@@ -22,9 +25,15 @@ const User = () => {
     SetaccountContainer(false);
   };
 
+  useBackListener(({ location }) => {
+    console.log("Navigated Back", { location });
+    navigate("/", { replace: true });
+  });
+
   const logOutHandler = async (e) => {
     dispatch(fetchAsyncUserLogOut(data.token));
     console.log("Logout");
+    navigate("/", { replace: true });
   };
   const AccountclickHandler = async (e) => {
     SetaccountContainer(true);

@@ -9,6 +9,8 @@ const NavBar = () => {
   const quantity = useSelector(getCartQty);
   const user = useSelector(getUserInfo);
   const [isUser, setUser] = useState(false);
+
+  console.log("loc", window.location);
   return (
     <NavContainer>
       <Link to={"/"}>
@@ -45,10 +47,11 @@ const Padder = styled.div`
   display: flex;
   .account {
     padding-left: 50px;
+    margin-bottom: 5px 2px 10px 2px;
   }
   h2 {
     font-weight: 500;
-    padding-top: 25px;
+    margin-top: 15px;
   }
 `;
 const NavContainer = styled.nav`
@@ -58,15 +61,16 @@ const NavContainer = styled.nav`
   justify-content: space-between;
 
   .title {
-    font-size: 32px;
+    font-size: 28px;
+    margin: 2px;
   }
   .cart {
     display: flex;
     h1 {
       padding-top: 15px;
     }
-    font-size: 25px;
-    margin: 10px;
+    font-size: 22px;
+    margin: 2px 5px 5px 5px;
   }
   align-items: center;
   padding: 0 60px;

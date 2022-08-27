@@ -32,7 +32,7 @@ const TempLogin = () => {
     }
   }, []);
   {
-    data.length != 0 && navigate("/");
+    data.length != 0 && navigate("/user_account");
   }
   const FormToggle = () => {
     $("form").animate({ height: "toggle", opacity: "toggle" }, "slow");
