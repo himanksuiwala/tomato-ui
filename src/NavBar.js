@@ -52,28 +52,62 @@ const NavBar = ({ is_Store }) => {
   );
 };
 const Padder = styled.div`
-  display: flex;
-  .account {
-    padding-left: 50px;
-    margin-bottom: 5px 2px 10px 2px;
-    h2 {
-      font-weight: 500;
-      margin-top: 15px;
+  @media screen and (max-width: 450px) {
+    margin-right: 10px;
+    font-size: 13px;
+    h1 {
+      font-size: 20px;
+    }
+    p {
+      font-size: 17px;
+    }
+    .account {
+      margin-left: 7px;
+      margin-bottom: 5px 2px 10px 2px;
+      h2 {
+        font-weight: 500;
+        margin-top: 15px;
+      }
+    }
+    .store_dashboard {
+      font-size: 20px;
     }
   }
-
-  .store_dashboard {
-    font-size: 20px;
+  display: flex;
+  @media screen and (min-width: 455px) {
+    .account {
+      padding-left: 50px;
+      margin-bottom: 5px 2px 10px 2px;
+      h2 {
+        font-weight: 500;
+        margin-top: 15px;
+      }
+    }
+    .store_dashboard {
+      font-size: 20px;
+    }
   }
 `;
 const NavContainer = styled.nav`
+  @media screen and (min-width: 455px) {
+    padding: 0px 20px 0px 20px;
+    .title {
+      font-size: 28px;
+    }
+  }
+  @media screen and (max-width: 450px) {
+    padding: 0px 10px 0px 20px;
+
+    .title {
+      font-size: 25px;
+    }
+  }
   height: 70px;
   background: #090b13;
   display: flex;
   justify-content: space-between;
 
   .title {
-    font-size: 28px;
     margin: 2px;
   }
   .cart {
@@ -85,7 +119,7 @@ const NavContainer = styled.nav`
     margin: 2px 5px 5px 5px;
   }
   align-items: center;
-  padding: 0 60px;
+  ${"" /* padding: 0 60px; */}
   overflow-x: hidden;
   color: white;
   &:focus,

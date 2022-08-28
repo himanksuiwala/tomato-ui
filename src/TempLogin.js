@@ -9,6 +9,7 @@ import {
 } from "./features/store/userSlice";
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
+import useBackListener from "./useBackListener";
 
 const TempLogin = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,10 @@ const TempLogin = () => {
   {
     data.length != 0 && navigate("/user_account");
   }
+  useBackListener(({ location }) => {
+    console.log("Navigated Back", { location });
+    navigate("/", { replace: true });
+  });
   const FormToggle = () => {
     $("form").animate({ height: "toggle", opacity: "toggle" }, "slow");
   };

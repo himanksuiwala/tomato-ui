@@ -85,6 +85,14 @@ const StoreDashboard = () => {
           <h3>Logout</h3>
         </div>
       </Header>
+      <UserContainer>
+        {store_data.token && (
+          <div className="sliced-name">
+            <span className="spa">Manage your </span>
+            <span className="span">{store_data.checkforStore.store_name}</span>
+          </div>
+        )}
+      </UserContainer>
       <BottomContainer>
         <OptionsContainer>
           <div onClick={OrderclickHandler} className="orders">
@@ -113,6 +121,19 @@ const StoreDashboard = () => {
     </Container>
   );
 };
+const UserContainer = styled.div`
+  padding: 7px;
+
+  span {
+    font-size: 18px;
+  }
+  .sliced-name {
+    .span {
+      font-size: 30px;
+      font-weight: 600;
+    }
+  }
+`;
 const AddItemContainer = styled.div``;
 const AddItem = styled.div``;
 const AccountContainer = styled.div`

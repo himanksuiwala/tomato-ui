@@ -10,7 +10,6 @@ import {
 } from "./features/store/userSlice";
 import OrderItemContainer from "./OrderItemContainer";
 import useBackListener from "./useBackListener";
-import ProfileContainer from "./ProfileContainer";
 const User = () => {
   const data = useSelector(getUserInfo);
   const dispatch = useDispatch();
@@ -51,6 +50,14 @@ const User = () => {
     setTimeout(() => setLoading(false), 3000);
   }, []);
 
+  let slice_name = " ";
+  for (let i = 0; i < data.checkforUser.name.length; i++) {
+    if (data.checkforUser.name[i] == " ") break;
+    else {
+      slice_name += data.checkforUser.name[i];
+    }
+  }
+  console.log(slice_name);
   while (loading) {
     return (
       <AppLoading>
@@ -68,6 +75,14 @@ const User = () => {
           <h3>Logout</h3>
         </div>
       </Header>
+      <UserContainer>
+        {data.token && (
+          <div className="sliced-name">
+            <span className="spa">Hi!</span>
+            <span className="span">{slice_name}</span>
+          </div>
+        )}
+      </UserContainer>
       <BottomContainer>
         <OptionsContainer>
           <div onClick={OrderclickHandler} className="orders">
@@ -94,12 +109,25 @@ const User = () => {
     </Container>
   );
 };
+const UserContainer = styled.div`
+  padding: 7px;
+  
+  span {
+    font-size: 20px;
+  }
+  .sliced-name {
+    .span {
+      font-size: 30px;
+      font-weight: 600;
+    }
+  }
+`;
 const AccountContainer = styled.div``;
 const MyOrders = styled.div``;
 const Body = styled.div``;
 const OptionsContainer = styled.div`
   display: flex;
-  margin-top: 40px;
+  margin-top: 25px;
   margin-bottom: 10px;
   .orders {
     margin: 0px 10px 0px 10px;
