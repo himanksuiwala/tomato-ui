@@ -52,7 +52,7 @@ const NavBar = ({ is_Store }) => {
   );
 };
 const Padder = styled.div`
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 450px) { //For MOBILE
     margin-right: 10px;
     font-size: 13px;
     h1 {

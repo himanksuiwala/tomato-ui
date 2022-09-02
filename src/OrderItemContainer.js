@@ -2,16 +2,17 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { getUserOrders, getStoreOrder } from "./features/store/userSlice";
+import useWindowDimensions from "./useWindowDimensions";
 var moment = require("moment");
 var momentutc = require("moment-timezone");
 const OrderItemContainer = () => {
+  const { height, width } = useWindowDimensions();
   const fetchedUser = useSelector(getUserOrders);
   const fetchedStore = useSelector(getStoreOrder);
   let order = [];
   {
     fetchedStore.length ? (order = fetchedStore) : (order = fetchedUser);
   }
-
   return (
     <Container>
       {order.map((i) => {
@@ -52,9 +53,12 @@ const OrderItemContainer = () => {
                       "YYYY"
                     )}{" "}
                   </span>
-                  <span>
-                    at {momentutc(i.date).tz("Asia/Kolkata").format("HH:mm a")}{" "}
-                  </span>
+                  {width > 455 && (
+                    <span>
+                      at{" "}
+                      {momentutc(i.date).tz("Asia/Kolkata").format("HH:mm a")}{" "}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
@@ -85,20 +89,28 @@ const OrderItemContainer = () => {
                 </div>
               ) : (
                 <Address>
-                  <div className="address">
-                    <div className="add-tag">
-                      <span className="add-tag-add">Delivery Address:</span>
-                      <span>{i.delivery_address}</span>
+                  {width > 455 && (
+                    <div className="address">
+                      <div className="add-tag">
+                        <span className="add-tag-add">Delivery Address:</span>
+                        <span>{i.delivery_address}</span>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </Address>
               )}
 
               <div className="order-total">
                 <div className="order-payment">
-                  <div className="order-payment-tag">
-                    <p>Mode of payment</p>
-                  </div>
+                  {width > 455 ? (
+                    <div className="order-payment-tag">
+                      <p>Mode of payment</p>
+                    </div>
+                  ) : (
+                    <div className="order-payment-tag">
+                      <p>Payment</p>
+                    </div>
+                  )}
                   <div className="payment-type">
                     <span>{i.payment_type}</span>
                   </div>
@@ -123,10 +135,38 @@ const OrderItemContainer = () => {
   );
 };
 const Address = styled.div``;
-const StoreOrder = styled.div``;
-const UserOrder = styled.div``;
 
 const OrderItem = styled.div`
+  @media screen and (max-width: 450px) {
+    font-size: 15.5px;
+    .order-payment {
+      margin: 8px 0px 7px 0px;
+    }
+    .order-total {
+      width: 31vw;
+    }
+    .order-total-tag {
+      display: flex;
+      justify-content: center;
+      font-weight: 700;
+    }
+    .content {
+      padding: 6px 0px 4px 0px;
+      margin-right: 19px;
+    }
+  }
+  @media screen and (min-width: 455px) {
+    font-size: 15.5px;
+    .order-payment {
+      margin: 20px 1px 20px 1px;
+    }
+    .order-total-tag {
+      display: flex;
+      justify-content: center;
+      font-weight: 700;
+      width: 170px;
+    }
+  }
   margin: 10px 0px 7px 0px;
   .add-tag-add {
     display: flex;
@@ -142,27 +182,12 @@ const OrderItem = styled.div`
     display: flex;
     justify-content: center;
   }
-
-  .order-payment {
-    margin: 20px 1px 20px 1px;
-  }
-
   .payment-type {
     display: flex;
     justify-content: center;
   }
   .line {
     margin: 7px 5px 1px 5px;
-  }
-
-  .order-inner-container {
-    ${"" /* margin: 20px 1px 20px 1px; */}
-  }
-  .order-total-tag {
-    display: flex;
-    justify-content: center;
-    font-weight: 700;
-    width: 170px;
   }
   .item-content {
     width: 220px;
@@ -175,7 +200,6 @@ const OrderItem = styled.div`
     display: flex;
     justify-content: space-between;
   }
-
   .bottom {
     display: flex;
     justify-content: space-between;
@@ -187,7 +211,6 @@ const OrderItem = styled.div`
       font-weight: 550;
     }
   }
-
   .order-tag {
     font-weight: 600;
     display: flex;

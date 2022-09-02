@@ -10,6 +10,10 @@ import {
 } from "./features/store/userSlice";
 import OrderItemContainer from "./OrderItemContainer";
 import useBackListener from "./useBackListener";
+<style>
+  @import
+  url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
+</style>;
 const User = () => {
   const data = useSelector(getUserInfo);
   const dispatch = useDispatch();
@@ -23,15 +27,12 @@ const User = () => {
     defaultState = false;
     SetaccountContainer(false);
   };
-
   useBackListener(({ location }) => {
-    console.log("Navigated Back", { location });
     navigate("/", { replace: true });
   });
 
   const logOutHandler = async (e) => {
     dispatch(fetchAsyncUserLogOut(data.token));
-    console.log("Logout");
     navigate("/", { replace: true });
   };
   const AccountclickHandler = async (e) => {
@@ -57,12 +58,11 @@ const User = () => {
       slice_name += data.checkforUser.name[i];
     }
   }
-  console.log(slice_name);
   while (loading) {
     return (
       <AppLoading>
         <AppLoadingContents>
-          <Spinner name="wordpress" fadeIn="none" />
+          {<Spinner name="wordpress" fadeIn="none" />}
         </AppLoadingContents>
       </AppLoading>
     );
@@ -110,19 +110,21 @@ const User = () => {
   );
 };
 const UserContainer = styled.div`
-  padding: 7px;
-  
-  span {
-    font-size: 20px;
+  @media screen and (max-width: 450px) {
+    margin: 0 calc(2vw + 5px);
   }
+  margin-top:12px;
+  padding: 4px;
   .sliced-name {
-    .span {
-      font-size: 30px;
+    font-weight:500;
+    .spa {
       font-weight: 600;
+      font-size: 40px;
     }
+    font-size: 35px;
+  }
   }
 `;
-const AccountContainer = styled.div``;
 const MyOrders = styled.div``;
 const Body = styled.div``;
 const OptionsContainer = styled.div`
@@ -139,6 +141,13 @@ const OptionsContainer = styled.div`
 `;
 const BottomContainer = styled.div``;
 const Header = styled.div`
+  @media screen and (max-width: 450px) {
+    margin: 0 calc(2vw + 5px);
+    margin-top: 10px;
+    h1 {
+    font-size: 70px;
+  }
+  }
   display: flex;
   justify-content: space-between;
   .logout {
@@ -166,16 +175,16 @@ const AppLoadingContents = styled.div`
 `;
 
 const Container = styled.div`
-
-font-family: "Inter", sans-serif;
-
-@media screen and (min-width: 601px) {
+  font-family: "Inter", sans-serif;
+  @media screen and (min-width: 455px) {
     margin: 0 calc(12vw + 10px);
   }
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 450) {
     h1 {
       font-size: 20px;
-      font-weight: 500;
-    }`;
+      font-weight: 400;
+    }
+  }
+`;
 
 export default User;
