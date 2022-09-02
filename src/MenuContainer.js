@@ -58,7 +58,7 @@ const MenuContainer = (props) => {
             return (
               <>
                 <MenuItem key={i._id}>
-                  <div>
+                  <div className="item">
                     <div className="item-title">
                       <p>{i.name}</p>
                     </div>
@@ -123,14 +123,22 @@ const MenuContainer = (props) => {
   );
 };
 const MenuItem = styled.div`
+  @media screen and (max-width: 450px) {
+    .item-description {
+      margin-top: 13px;
+    }
+  }
+
+  @media screen and (min-width: 455px) {
+    .item-description {
+      margin-top: 20px;
+    }
+  }
   .delete-item {
     margin-top: 8px;
   }
-  ${
-    "" /* .price {
-    display: flex;
-    justify-content: center;
-  } */
+  .item {
+    width: 65vw;
   }
   .qty {
     input {
@@ -147,24 +155,33 @@ const MenuItem = styled.div`
     font-size: 22px;
     font-weight: 550;
   }
-  .item-description {
-    margin-top: 20px;
-  }
 `;
 const ContainerHeader = styled.div``;
 const Menu = styled.div`
-  margin-top: 10px;
-  margin-left: 5px;
+  margin-top: 5px;
 `;
 const Container = styled.div`
+  @media screen and (min-width: 455px) {
+    .title {
+      font-weight: 500;
+      font-size: 40px;
+    }
+  }
+  @media screen and (max-width: 450px) {
+    .title {
+      font-weight: 550;
+      font-size: 30px;
+    }
+    .logo {
+      font-size: 25px;
+    }
+  }
+
   margin-top: 30px;
   margin-bottom: 100px;
   margin-left: 5px;
   font-family: "Inter", sans-serif;
-  .title {
-    font-weight: 500;
-    font-size: 40px;
-  }
+
   .logo {
     span {
       padding-top: 15px;
