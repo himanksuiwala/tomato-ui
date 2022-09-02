@@ -2,9 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { getCartitems, reset } from "./features/store/cartSlice";
-import { getStoreData } from "./features/store/storeSlice";
-import { getUserInfo } from "./features/store/userSlice";
+import { getCartitems, reset } from "../features/store/cartSlice";
+import { getStoreData } from "../features/store/storeSlice";
+import { getUserInfo } from "../features/store/userSlice";
 import Spinner from "react-spinkit";
 <style>
   @import

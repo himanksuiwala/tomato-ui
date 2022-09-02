@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Spinner from "react-spinkit";
 import { useNavigate } from "react-router-dom";
-import AddItemStore from "./AddItemStore";
-import useBackListener from "./useBackListener";
-import { fetchAsyncStoreMenu } from "./features/store/storeSlice";
+import AddItemStore from "../Components/AddItemStore";
+import useBackListener from "../utilities/useBackListener";
+import { fetchAsyncStoreMenu } from "../features/store/storeSlice";
 import {
   fetchAsyncStoreLogout,
   fetchAsyncStoreOrders,
   getStoreData,
-} from "./features/store/userSlice";
-import MenuContainer from "./MenuContainer";
+} from "../features/store/userSlice";
+import MenuContainer from "../Components/MenuContainer";
 import OrderItemContainer from "./OrderItemContainer";
 
 const StoreDashboard = () => {

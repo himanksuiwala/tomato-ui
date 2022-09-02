@@ -1,21 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { MdShoppingCart } from "react-icons/md";
 import { useSelector } from "react-redux";
-import { getCartQty } from "./features/store/cartSlice";
-import { Link, Navigate } from "react-router-dom";
-import { getStoreData, getUserInfo } from "./features/store/userSlice";
+import { getCartQty } from "../features/store/cartSlice";
+import { Link } from "react-router-dom";
+import { getStoreData, getUserInfo } from "../features/store/userSlice";
+import useWindowDimensions from "../utilities/useWindowDimensions";
 const NavBar = ({ is_Store }) => {
+  const { height, width } = useWindowDimensions();
   const quantity = useSelector(getCartQty);
   const user = useSelector(getUserInfo);
   const store_data = useSelector(getStoreData);
+
   return (
     <NavContainer>
       <Link to={"/"}>
         <div className="title">
-          <h1>
-            <i>Tomato</i>🍅
-          </h1>
+          <h1>{width > 455 && <i>Tomato</i>}🍅</h1>
         </div>
       </Link>
 
@@ -52,7 +53,8 @@ const NavBar = ({ is_Store }) => {
   );
 };
 const Padder = styled.div`
-  @media screen and (max-width: 450px) { //For MOBILE
+  @media screen and (max-width: 450px) {
+    //For MOBILE
     margin-right: 10px;
     font-size: 13px;
     h1 {

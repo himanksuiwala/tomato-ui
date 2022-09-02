@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { MdRestaurantMenu } from "react-icons/md";
-import { getStoreMenu } from "./features/store/storeSlice";
-import { addProduct } from "./features/store/cartSlice";
+import { getStoreMenu } from "../features/store/storeSlice";
+import { addProduct } from "../features/store/cartSlice";
 import axios from "axios";
 <style>
   @import

@@ -4,9 +4,8 @@ import $ from "jquery";
 import { useNavigate } from "react-router-dom";
 import {
   fetchAsyncStoreLogin,
-  fetchAsyncStoreRegister,
   getStoreData,
-} from "./features/store/userSlice";
+} from "../features/store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 const StoreLogin = () => {
   const BACKDROP_IMAGE_URL = `https://ik.imagekit.io/1aafk6gx3bk/louis-hansel-wVoP_Q2Bg_A-unsplash_xDnXz45aA.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1659644493814`;
@@ -25,7 +24,6 @@ const StoreLogin = () => {
   const [rest_contact, setRest_contact] = useState("");
   const [rest_cuisine, setRest_cuisine] = useState("");
 
-  
   useEffect(() => {
     fetched_store.length != 0 && navigate("/store_dashboard");
   }, []);

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { getStoreData } from "./features/store/userSlice";
+import { getStoreData } from "../features/store/userSlice";
 const AddItemStore = (props) => {
   const store_data = useSelector(getStoreData);
   const [itemName, setItemName] = useState("");

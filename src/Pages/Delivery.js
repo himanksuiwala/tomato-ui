@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Spinner from "react-spinkit";
-import { fetchAsyncStores } from "./features/store/storeSlice";
-import RestContainer from "./RestContainer";
+import { fetchAsyncStores } from "../features/store/storeSlice";
+import RestContainer from "../Components/RestContainer";
 <style>
   @import
   url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');

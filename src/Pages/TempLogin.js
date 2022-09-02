@@ -6,10 +6,10 @@ import {
   fetchAsyncUserLogOut,
   fetchAsyncUserRegister,
   getUserInfo,
-} from "./features/store/userSlice";
+} from "../features/store/userSlice";
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
-import useBackListener from "./useBackListener";
+import useBackListener from "../utilities/useBackListener";
 
 const TempLogin = () => {
   const dispatch = useDispatch();

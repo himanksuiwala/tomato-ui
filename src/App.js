@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Home from "./Home";
-import NavBar from "./NavBar";
-import Delivery from "./Delivery";
-import Restaurant from "./Restaurant";
-import Cart from "./Cart";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Router,
-  Navigate,
-} from "react-router-dom";
-import "./App.css";
-import User from "./User";
-import TempLogin from "./TempLogin";
-import StoreLogin from "./StoreLogin";
-import ProtectedRoutes from "./ProtectedRoutes";
-import StoreDashboard from "./StoreDashboard";
-import ProtectedStoreRoutes from "./ProtectedStoreRoutes";
+import Home from "./Pages/Home";
+import NavBar from "./public/NavBar";
+import Delivery from "./Pages/Delivery";
+import Restaurant from "./Pages/Restaurant";
+import Cart from "./Pages/Cart";
+import { Routes, Route, Navigate } from "react-router-dom";
+import "./public/App.css";
+import User from "./Pages/User";
+import TempLogin from "./Pages/TempLogin";
+import StoreLogin from "./Pages/StoreLogin";
+import ProtectedRoutes from "./utilities/ProtectedRoutes";
+import StoreDashboard from "./Pages/StoreDashboard";
+import ProtectedStoreRoutes from "./utilities/ProtectedStoreRoutes";
 
 function App() {
   const [isStore, setisStore] = useState(false);
@@ -29,9 +23,6 @@ function App() {
       setisStore(true);
     }
   }, []);
-
-  console.log("loc", window.location);
-  console.log(isStore);
   return (
     <>
       <NavBar is_Store={isStore} />

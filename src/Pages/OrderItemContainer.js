@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { getUserOrders, getStoreOrder } from "./features/store/userSlice";
-import useWindowDimensions from "./useWindowDimensions";
+import { getUserOrders, getStoreOrder } from "../features/store/userSlice";
+import useWindowDimensions from "../utilities/useWindowDimensions";
 var moment = require("moment");
 var momentutc = require("moment-timezone");
 const OrderItemContainer = () => {

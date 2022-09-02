@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { fetchAsyncStoreData, getStoreData } from "./features/store/storeSlice";
+import { fetchAsyncStoreData, getStoreData } from "../features/store/storeSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchAsyncStoreMenu } from "./features/store/storeSlice";
-import MenuContainer from "./MenuContainer";
+import { fetchAsyncStoreMenu } from "../features/store/storeSlice";
+import MenuContainer from "../Components/MenuContainer";
 import Spinner from "react-spinkit";
-import useWindowDimensions from "./useWindowDimensions";
+import useWindowDimensions from "../utilities/useWindowDimensions";
 <style>
   @import
   url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
@@ -22,7 +22,6 @@ const Restaurant = () => {
     setTimeout(() => setLoading(false), 2500);
   }, []);
   const data = useSelector(getStoreData);
-  console.log(data);
   while (loading) {
     return (
       <AppLoading>

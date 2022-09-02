@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Hero from "./Hero";
-import NavContainer from "./NavContainer";
+import Hero from "../Components/Hero";
+import NavContainer from "../Components/NavContainer";
 import { useDispatch } from "react-redux";
-import { fetchAsyncStores } from "./features/store/storeSlice";
+import { fetchAsyncStores } from "../features/store/storeSlice";
 import Spinner from "react-spinkit";
 const Home = () => {
   const dispatch = useDispatch();

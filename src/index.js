@@ -3,13 +3,11 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { store, persistor } from "./app/store";
 import App from "./App";
-import "./index.css";
-import { persistStore } from "redux-persist";
+import "./public/index.css";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import { BrowserRouter } from "react-router-dom";
 const container = document.getElementById("root");
 const root = createRoot(container);
-// let persistor = persistStore(store)
 root.render(
   <>
     <Provider store={store}>
