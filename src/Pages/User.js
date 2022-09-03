@@ -27,6 +27,7 @@ const User = () => {
     defaultState = false;
     SetaccountContainer(false);
   };
+  document.title = "My Account 🍅";
   useBackListener(({ location }) => {
     navigate("/", { replace: true });
   });

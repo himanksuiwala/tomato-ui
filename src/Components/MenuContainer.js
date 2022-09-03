@@ -177,7 +177,7 @@ const Container = styled.div`
     }
   }
 
-  margin-top: 30px;
+  margin-top: 10px;
   margin-bottom: 100px;
   margin-left: 5px;
   font-family: "Inter", sans-serif;

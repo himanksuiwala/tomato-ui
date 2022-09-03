@@ -19,7 +19,6 @@ const AddItemStore = (props) => {
       .catch((e) => {
         console.log(e);
       });
-    // alert("Item Added Successfully !");
     window.location.reload(true);
     props.flag("cancel");
   };
@@ -58,6 +57,7 @@ const AddItemStore = (props) => {
               type="text"
               className="itemName"
               value={itemName}
+              required
               onChange={(e) => {
                 setItemName(e.target.value);
               }}
@@ -68,6 +68,7 @@ const AddItemStore = (props) => {
             <input
               type="text"
               className="itemName"
+              required
               onChange={(e) => {
                 setCuisineType(e.target.value);
               }}
@@ -79,6 +80,7 @@ const AddItemStore = (props) => {
             <input
               type="text"
               className="itemName"
+              required
               value={price}
               onChange={(e) => {
                 setPrice(e.target.value);
@@ -90,6 +92,7 @@ const AddItemStore = (props) => {
             <input
               type="text"
               className="itemName"
+              required
               value={desc}
               onChange={(e) => {
                 SetDesc(e.target.value);
@@ -113,6 +116,7 @@ const AddButton = styled.div`
   display: flex;
   .btn {
     margin: 2px 10px 2px 10px;
+    font-size:17px;
   }
   justify-content: center;
   margin-bottom: 20px;
@@ -141,17 +145,11 @@ const Container = styled.div`
     flex-direction: row-reverse;
     padding-right: 10px;
   }
-  background: pink;
+  background: #dbd7d2;
   position: fixed;
   left: 50%;
   margin-top: 100px;
   transform: translate(-50%, 0);
-
-  ${
-    "" /* margin-top: 400px;
-  margin-left: 450px;
-  position: fixed; */
-  }
   z-index: 1;
 `;
 export default AddItemStore;

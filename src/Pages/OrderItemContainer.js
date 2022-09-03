@@ -20,9 +20,7 @@ const OrderItemContainer = () => {
           <OrderItem>
             <div className="top">
               {fetchedStore.length ? (
-                <div className="restro-name">
-                  <h3>{"> "}Ordered Items</h3>
-                </div>
+                ""
               ) : (
                 <div className="restro-name">
                   {i.store_id && (
@@ -81,12 +79,14 @@ const OrderItemContainer = () => {
               </div>
 
               {fetchedStore.length ? (
-                <div className="address">
-                  <div className="add-tag">
-                    <div className="add-tag-add">Ordered by:</div>
-                    <span>{i.user_id.name}</span>
+                width > 455 && (
+                  <div className="address">
+                    <div className="add-tag">
+                      <div className="add-tag-add">Ordered by:</div>
+                      <span>{i.user_id.name}</span>
+                    </div>
                   </div>
-                </div>
+                )
               ) : (
                 <Address>
                   {width > 455 && (
@@ -151,12 +151,17 @@ const OrderItem = styled.div`
       font-weight: 700;
     }
     .content {
-      padding: 6px 0px 4px 0px;
+      padding: 6px 0px 4px 07px;
+      font-weight: 700;
       margin-right: 19px;
     }
   }
   @media screen and (min-width: 455px) {
     font-size: 15.5px;
+    .content{
+      padding:2px 0px 6px 7px;
+      font-weight:600;
+    }
     .order-payment {
       margin: 20px 1px 20px 1px;
     }

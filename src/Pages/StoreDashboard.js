@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -14,11 +13,13 @@ import {
 } from "../features/store/userSlice";
 import MenuContainer from "../Components/MenuContainer";
 import OrderItemContainer from "./OrderItemContainer";
+import useWindowDimensions from "../utilities/useWindowDimensions";
 
 const StoreDashboard = () => {
   const dispatch = useDispatch();
   let defaultState = true;
   let navigate = useNavigate();
+  const { height, width } = useWindowDimensions();
   const [ordersContainer, setOrdersContainer] = useState(false);
   const [accountContainer, SetaccountContainer] = useState(false);
   const [addItemInput, setAddItemInput] = useState(false);
@@ -26,8 +27,10 @@ const StoreDashboard = () => {
 
   const store_data = useSelector(getStoreData);
 
+  document.title = `Dashboard - ${
+    store_data && store_data.checkforStore.store_name
+  } 🍅`;
   useBackListener(({ location }) => {
-    console.log("Navigated Back", { location });
     navigate("/", { replace: true });
   });
 
@@ -88,8 +91,19 @@ const StoreDashboard = () => {
       <UserContainer>
         {store_data.token && (
           <div className="sliced-name">
-            <span className="spa">Manage your </span>
-            <span className="span">{store_data.checkforStore.store_name}</span>
+            {width > 455 ? (
+              <>
+                <span className="spa">Manage your </span>
+
+                <span className="span">
+                  {store_data.checkforStore.store_name}
+                </span>
+              </>
+            ) : (
+              <>
+                <span className="spa">Manage your Restaurant </span>
+              </>
+            )}
           </div>
         )}
       </UserContainer>
@@ -111,7 +125,7 @@ const StoreDashboard = () => {
           ) : (
             <AccountContainer>
               <h2 className="add-item" onClick={AddItemHandler}>
-                {">>"}Add Item
+                {">"}Add Item
               </h2>
               <MenuContainer location={"store"} token={store_data.token} />
             </AccountContainer>
@@ -123,7 +137,6 @@ const StoreDashboard = () => {
 };
 const UserContainer = styled.div`
   padding: 7px;
-
   span {
     font-size: 18px;
   }
@@ -133,8 +146,13 @@ const UserContainer = styled.div`
       font-weight: 600;
     }
   }
+  @media screen and (max-width: 450px) {
+    .sliced-name{
+      .span{
+        font-size:50px;
+      }
+    }
 `;
-const AddItemContainer = styled.div``;
 const AddItem = styled.div``;
 const AccountContainer = styled.div`
   .add-item {
@@ -148,10 +166,14 @@ const OptionsContainer = styled.div`
   display: flex;
   margin-top: 40px;
   margin-bottom: 10px;
+  @media screen and (max-width: 450px) {
+    h1 {
+      font-size: 25px;
+    }
+  }
   .orders {
     margin: 0px 10px 0px 10px;
   }
-
   .Account {
     margin: 0px 10px 0px 10px;
   }
@@ -168,6 +190,11 @@ const Header = styled.div`
   h1 {
     font-size: 80px;
   }
+  @media screen and (max-width: 450px) {
+    h1 {
+      font-size: 55px;
+      font-weight: 650;
+    }
 `;
 const AppLoading = styled.div`
   display: grid;
@@ -184,16 +211,14 @@ const AppLoadingContents = styled.div`
   align-items: center;
 `;
 const Container = styled.div`
+  font-family: "Inter", sans-serif;
 
-font-family: "Inter", sans-serif;
-
-@media screen and (min-width: 601px) {
+  @media screen and (min-width: 455px) {
     margin: 0 calc(12vw + 10px);
   }
-  @media screen and (max-width: 600px) {
-    h1 {
-      font-size: 20px;
-      font-weight: 500;
-    }`;
+  @media screen and (max-width: 450px) {
+    margin: 0 calc(2vw + 5px);
+  }
+`;
 
 export default StoreDashboard;

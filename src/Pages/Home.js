@@ -8,7 +8,7 @@ import Spinner from "react-spinkit";
 const Home = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-
+  document.title = "Tomato 🍅";
   useEffect(() => {
     dispatch(fetchAsyncStores());
     setTimeout(() => setLoading(false), 3000);

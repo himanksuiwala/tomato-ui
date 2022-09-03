@@ -11,6 +11,7 @@ import RestContainer from "../Components/RestContainer";
 const Delivery = () => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+  document.title = "Order Food Online 🍅";
   useEffect(() => {
     dispatch(fetchAsyncStores());
     setTimeout(() => setLoading(false), 2500);
