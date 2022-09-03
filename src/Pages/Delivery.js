@@ -71,24 +71,21 @@ const Container = styled.div`
     padding: 0 calc(12vw + 10px);
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 450px) {
     h1 {
-      font-size: 20px;
-      font-weight: 500;
+      font-size: 30px;
+      font-weight: 650;
     }
   }
 `;
 const Header = styled.div`
-  ${"" /* height: 350px; */}
   color: white;
-
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     filter: brightness(90%);
   }
-
   .hero {
     position: relative;
     height: 290px;

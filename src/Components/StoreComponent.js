@@ -24,10 +24,7 @@ const StoreComponent = () => {
                     />
                   </div>
                   <div className="store-name">
-                    <p>Nirvana Restro</p>
-                  </div>
-                  <div className="store-category">
-                    <p>Chinese Thai India</p>
+                    <p>{i.store_name}</p>
                   </div>
                 </Link>
               </Wrap>
@@ -49,18 +46,20 @@ const Content = styled.div`
   .store-name > p {
     font-family: "Inter", sans-serif;
     font-size: 20px;
-    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    font-weight: 400;
+    margin: 2px 0px 2px 0px;
   }
   display: grid;
   grid-gap: 1.563rem;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  @media (max-width: 700px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 `;
 
 const Wrap = styled.div`
-  height: 230px;
   border-radius: 0.625rem;
   cursor: pointer;
   overflow: hidden;
@@ -81,36 +80,11 @@ const Wrap = styled.div`
   }
 `;
 
-const Store = styled.div`
-  width: auto;
-  padding: 10px;
-  ${"" /* flex: 1; */}
-  ${"" /* margin: 0 1%; */}
-  background: teal;
-  border-radius: 20px;
-  .store-title {
-    p {
-      font-size: 19px;
-    }
-  }
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-    filter: brightness(90%);
-  }
-  .store-image {
-    width: 340px;
-    height: auto;
-  }
-`;
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   padding: 0 1%;
   justify-content: space-between;
-
   p {
     font-family: "Inter", sans-serif;
   }
