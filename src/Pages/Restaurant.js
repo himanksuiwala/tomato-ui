@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { fetchAsyncStoreData, getStoreData } from "../features/store/storeSlice";
+import {
+  fetchAsyncStoreData,
+  getStoreData,
+} from "../features/store/storeSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchAsyncStoreMenu } from "../features/store/storeSlice";
@@ -147,10 +150,8 @@ const RestaurantHeader = styled.div`
   }
   .store-add {
     padding: 10px 1px 10px 1px;
-    ${"" /* color: pink; */}
   }
   border-radius: 10px;
-  ${"" /* box-shadow: rgb(0 0 0 / 69%) 0 1px 30px -10px; */}
 `;
 
 const Container = styled.div`

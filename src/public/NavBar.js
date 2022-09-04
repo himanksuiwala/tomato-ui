@@ -121,7 +121,6 @@ const NavContainer = styled.nav`
     margin: 2px 5px 5px 5px;
   }
   align-items: center;
-  ${"" /* padding: 0 60px; */}
   overflow-x: hidden;
   color: white;
   &:focus,

@@ -12,7 +12,7 @@ import StoreLogin from "./Pages/StoreLogin";
 import ProtectedRoutes from "./utilities/ProtectedRoutes";
 import StoreDashboard from "./Pages/StoreDashboard";
 import ProtectedStoreRoutes from "./utilities/ProtectedStoreRoutes";
-
+import { Footer } from "./Components/Footer";
 function App() {
   const [isStore, setisStore] = useState(false);
   useEffect(() => {
@@ -41,6 +41,7 @@ function App() {
         </Route>
         <Route path="/delivery/:id" element={<Restaurant />} />
       </Routes>
+      <Footer />
     </>
   );
 }

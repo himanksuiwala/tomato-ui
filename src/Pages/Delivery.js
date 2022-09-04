@@ -52,7 +52,7 @@ const Delivery = () => {
 
 const ShadowContainer = styled.div`
   @media screen and (min-width: 601px) {
-    box-shadow: 0 3px 20px rgb(0 0 0 / 0.2);
+    ${'' /* box-shadow: 0 3px 20px rgb(0 0 0 / 0.2); */}
   }
 `;
 
@@ -64,9 +64,12 @@ const BottomHeader = styled.div`
     margin: 5px 20px 0px 20px;
     padding: 7px;
   }
+
+  margin-bottom:17px;
 `;
 
 const Container = styled.div`
+  margin-bottom: 60px;
   @media screen and (min-width: 601px) {
     padding: 0 calc(12vw + 10px);
   }

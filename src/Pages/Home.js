@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Hero from "../Components/Hero";
-import NavContainer from "../Components/NavContainer";
 import { useDispatch } from "react-redux";
 import { fetchAsyncStores } from "../features/store/storeSlice";
 import Spinner from "react-spinkit";
+import HomeBottom from "../Components/HomeBottom";
 const Home = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
@@ -26,8 +26,7 @@ const Home = () => {
   return (
     <D>
       <Hero />
-      <NavContainer />
-      <div>Home</div>
+      <HomeBottom />
     </D>
   );
 };
