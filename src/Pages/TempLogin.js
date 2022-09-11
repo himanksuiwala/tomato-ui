@@ -36,7 +36,6 @@ const TempLogin = () => {
     data.length != 0 && navigate("/user_account");
   }
   useBackListener(({ location }) => {
-    console.log("Navigated Back", { location });
     navigate("/", { replace: true });
   });
   const FormToggle = () => {

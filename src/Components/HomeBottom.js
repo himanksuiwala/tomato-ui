@@ -38,7 +38,9 @@ const StoreContainer = styled.div`
     font-size: 60px;
   }
 `;
-const DeliveryContainer = styled.div``;
+const DeliveryContainer = styled.div`
+padding-top:30px;
+`;
 const Explore = styled.div`
   display: flex;
   border-radius: 6px;

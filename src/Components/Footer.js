@@ -16,7 +16,7 @@ export const Footer = () => {
               <div className="git-icon">
                 <a
                   target="_blank"
-                  href="https://github.com/himanksuiwala/project-movieDB-redux"
+                  href="https://github.com/himanksuiwala/tomato"
                 >
                   <GoMarkGithub />
                 </a>

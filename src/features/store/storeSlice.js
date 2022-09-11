@@ -5,22 +5,12 @@ const SERVER_URL = "http://localhost:3001";
 export const fetchAsyncStores = createAsyncThunk(
   "stores/allStores",
   async () => {
-    const response = await axios.get(`http://localhost:3001/store/getAll`);
+    const response = await axios.get(
+      `https://project-tomato-backend.vercel.app/store/getAll`
+    );
     return response.data;
   }
 );
-// export const AsyncAddItem = createAsyncThunk(
-//   "store/addItem",
-//   async (config) => {
-//     const response = await axios.post(`${SERVER_URL}/item/add`, config, {
-//       headers: { "Content-Type": "application/json" },
-//       withCredentials: true,
-//     });
-//     console.log(response);
-//     return response.data;
-//   }
-// );
-
 export const fetchAsyncStoreData = createAsyncThunk(
   "store/Data",
   async (id) => {
@@ -52,25 +42,22 @@ const storeSlice = createSlice({
     },
   },
   extraReducers: {
-    // [AsyncAddItem.rejected]: () => {
-    //   console.log("er");
-    // },
     [fetchAsyncStores.fulfilled]: (state, { payload }) => {
-      console.log("Fetched");
+      // console.log("Fetched");
       return { ...state, storelist: payload };
     },
     [fetchAsyncStores.rejected]: () => {
       console.log("Errr");
     },
     [fetchAsyncStoreData.fulfilled]: (state, { payload }) => {
-      console.log("payload");
+      // console.log("payload");
       return { ...state, storedata: payload };
     },
     [fetchAsyncStoreData.rejected]: () => {
       console.log("Rejected");
     },
     [fetchAsyncStoreMenu.fulfilled]: (state, { payload }) => {
-      console.log("Fetched MNU");
+      // console.log("Fetched MNU");
       return { ...state, storeMenu: payload };
     },
     [fetchAsyncStoreMenu.rejected]: () => {

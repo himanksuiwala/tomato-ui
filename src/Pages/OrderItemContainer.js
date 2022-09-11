@@ -9,6 +9,7 @@ const OrderItemContainer = () => {
   const { height, width } = useWindowDimensions();
   const fetchedUser = useSelector(getUserOrders);
   const fetchedStore = useSelector(getStoreOrder);
+  console.log(fetchedUser)
   let order = [];
   {
     fetchedStore.length ? (order = fetchedStore) : (order = fetchedUser);
@@ -17,7 +18,7 @@ const OrderItemContainer = () => {
     <Container>
       {order.map((i) => {
         return (
-          <OrderItem>
+          <OrderItem >
             <div className="top">
               {fetchedStore.length ? (
                 ""
@@ -158,9 +159,9 @@ const OrderItem = styled.div`
   }
   @media screen and (min-width: 455px) {
     font-size: 15.5px;
-    .content{
-      padding:2px 0px 6px 7px;
-      font-weight:600;
+    .content {
+      padding: 2px 0px 6px 7px;
+      font-weight: 600;
     }
     .order-payment {
       margin: 20px 1px 20px 1px;
