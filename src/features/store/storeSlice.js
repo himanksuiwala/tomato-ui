@@ -5,9 +5,7 @@ const SERVER_URL = "http://localhost:3001";
 export const fetchAsyncStores = createAsyncThunk(
   "stores/allStores",
   async () => {
-    const response = await axios.get(
-      `https://project-tomato-backend.vercel.app/store/getAll`
-    );
+    const response = await axios.get(`https://tomato-server.herokuapp.com/store/getAll`);
     return response.data;
   }
 );
