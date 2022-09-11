@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const SERVER_URL = "http://localhost:3001";
+const SERVER_URL = "https://tomato-server.herokuapp.com";
 
 export const fetchAsyncUserLogin = createAsyncThunk(
   "user/Login",

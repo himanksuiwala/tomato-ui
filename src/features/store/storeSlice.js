@@ -1,18 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const SERVER_URL = "http://localhost:3001";
+const SERVER_URL = "https://tomato-server.herokuapp.com";
 
 export const fetchAsyncStores = createAsyncThunk(
   "stores/allStores",
   async () => {
-    const response = await axios.get(`https://tomato-server.herokuapp.com/store/getAll`);
+    const response = await axios.get(`${SERVER_URL}/store/getAll`);
     return response.data;
   }
 );
 export const fetchAsyncStoreData = createAsyncThunk(
   "store/Data",
   async (id) => {
-    const response = await axios.get(`http://localhost:3001/storedata/${id}`);
+    const response = await axios.get(`${SERVER_URL}/storedata/${id}`);
     return response.data;
   }
 );
@@ -20,7 +20,7 @@ export const fetchAsyncStoreData = createAsyncThunk(
 export const fetchAsyncStoreMenu = createAsyncThunk(
   "store/menu",
   async (id) => {
-    const response = await axios.get(`http://localhost:3001/storeMenu/${id}`);
+    const response = await axios.get(`${SERVER_URL}/storeMenu/${id}`);
     return response.data;
   }
 );
