@@ -29,7 +29,6 @@ const StoreDashboard = () => {
 
   const fetched_from_store = useSelector(getStoreData);
   document.title = `Tomato - Dashboard `;
-  let store_data;
   useBackListener(({ location }) => {
     navigate("/", { replace: true });
   });
@@ -39,18 +38,17 @@ const StoreDashboard = () => {
     },
   };
   useEffect(() => {
-    axios.get("https://tomato-server.herokuapp.com/store/about", config).then(
+    axios.get("http://localhost:3001/store/about", config).then(
       (resp) => {
         setStore(resp.data);
-        store_data = resp.data;
+        dispatch(fetchAsyncStoreMenu(resp.data._id));
       },
       (e) => console.log(e)
     );
     dispatch(fetchAsyncStoreOrders(config));
-    dispatch(fetchAsyncStoreMenu(fetched_from_store._id));
     setTimeout(() => setLoading(false), 2500);
   }, []);
-
+  console.log(store._id);
   const logOutHandler = async (e) => {
     dispatch(fetchAsyncStoreLogout(fetched_from_store.token));
     navigate("/", { replace: true });
