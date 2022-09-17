@@ -80,7 +80,7 @@ const User = () => {
         {data.token && (
           <div className="sliced-name">
             <span className="spa">Hi!</span>
-            <span className="span">{slice_name}</span>
+            <span className="span">{data.checkforUser.name}</span>
           </div>
         )}
       </UserContainer>
@@ -146,8 +146,8 @@ const Header = styled.div`
     margin: 0 calc(2vw + 5px);
     margin-top: 10px;
     h1 {
-    font-size: 70px;
-  }
+      font-size: 70px;
+    }
   }
   display: flex;
   justify-content: space-between;
