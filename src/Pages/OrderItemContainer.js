@@ -9,16 +9,17 @@ const OrderItemContainer = () => {
   const { height, width } = useWindowDimensions();
   const fetchedUser = useSelector(getUserOrders);
   const fetchedStore = useSelector(getStoreOrder);
-  console.log(fetchedUser)
+  console.log(fetchedUser);
   let order = [];
   {
     fetchedStore.length ? (order = fetchedStore) : (order = fetchedUser);
   }
+  order.reverse();
   return (
     <Container>
       {order.map((i) => {
         return (
-          <OrderItem >
+          <OrderItem>
             <div className="top">
               {fetchedStore.length ? (
                 ""
