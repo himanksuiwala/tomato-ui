@@ -38,7 +38,7 @@ const StoreDashboard = () => {
     },
   };
   useEffect(() => {
-    axios.get("http://localhost:3001/store/about", config).then(
+    axios.get("https://tomato-server.herokuapp.com/store/about", config).then(
       (resp) => {
         setStore(resp.data);
         dispatch(fetchAsyncStoreMenu(resp.data._id));
@@ -48,7 +48,6 @@ const StoreDashboard = () => {
     dispatch(fetchAsyncStoreOrders(config));
     setTimeout(() => setLoading(false), 2500);
   }, []);
-  console.log(store._id);
   const logOutHandler = async (e) => {
     dispatch(fetchAsyncStoreLogout(fetched_from_store.token));
     navigate("/", { replace: true });
