@@ -35,9 +35,7 @@ const TempLogin = () => {
   {
     data.length != 0 && navigate("/user_account");
   }
-  useBackListener(({ location }) => {
-    navigate("/", { replace: true });
-  });
+
   const FormToggle = () => {
     $("form").animate({ height: "toggle", opacity: "toggle" }, "slow");
   };
