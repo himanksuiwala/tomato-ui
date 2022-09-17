@@ -13,11 +13,12 @@ const OrderItemContainer = () => {
   {
     fetchedStore.length ? (order = fetchedStore) : (order = fetchedUser);
   }
-  const reversed_order = order.reverse();
+  const sorted_order = order.slice();
+  sorted_order.reverse();
 
   return (
     <Container>
-      {reversed_order.map((i) => {
+      {sorted_order.map((i) => {
         return (
           <OrderItem>
             <div className="top">
