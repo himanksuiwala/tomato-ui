@@ -13,6 +13,7 @@ import ProtectedRoutes from "./utilities/ProtectedRoutes";
 import StoreDashboard from "./Pages/StoreDashboard";
 import ProtectedStoreRoutes from "./utilities/ProtectedStoreRoutes";
 import { Footer } from "./Components/Footer";
+import { NotFound } from "./Pages/NotFound";
 function App() {
   const [isStore, setisStore] = useState(false);
   useEffect(() => {
@@ -27,6 +28,7 @@ function App() {
     <>
       <NavBar is_Store={isStore} />
       <Routes>
+        <Route path="*" element={<NotFound />} />
         <Route path="/store_auth" element={<StoreLogin />} />
         <Route path="/" element={<Home />} />
         <Route path="/redirect" element={<Navigate to="/cart" />} />
