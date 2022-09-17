@@ -25,7 +25,7 @@ const MenuContainer = (props) => {
   };
   const removeItem = async (item) => {
     const response = await axios
-      .delete(`http://localhost:3001/item/${item}`, {
+      .delete(`https://tomato-server.herokuapp.com/item/${item}`, {
         headers: { Authorization: `Bearer ${auth_token}` },
       })
       .catch((e) => {

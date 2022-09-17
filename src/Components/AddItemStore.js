@@ -13,7 +13,7 @@ const AddItemStore = (props) => {
 
   const addItem = async () => {
     const response = await axios
-      .post(`http://localhost:3001/item/add`, add_item_obj, {
+      .post(`https://tomato-server.herokuapp.com/item/add`, add_item_obj, {
         headers: { Authorization: `Bearer ${store_data.token}` },
       })
       .catch((e) => {
