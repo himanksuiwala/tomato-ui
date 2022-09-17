@@ -10,6 +10,7 @@ import {
 } from "../features/store/userSlice";
 import OrderItemContainer from "./OrderItemContainer";
 import useBackListener from "../utilities/useBackListener";
+import axios from "axios";
 <style>
   @import
   url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
@@ -20,6 +21,7 @@ const User = () => {
   let navigate = useNavigate();
   let defaultState = true;
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState("");
   const [ordersContainer, setOrdersContainer] = useState(true);
   const [accountContainer, SetaccountContainer] = useState(false);
   const OrderclickHandler = async (e) => {
@@ -31,7 +33,14 @@ const User = () => {
   useBackListener(({ location }) => {
     navigate("/", { replace: true });
   });
-
+  useEffect(() => {
+    axios.get("http://localhost:3001/user/about", config).then(
+      (resp) => {
+        setUser(resp.data);
+      },
+      (e) => console.log(e)
+    );
+  }, []);
   const logOutHandler = async (e) => {
     dispatch(fetchAsyncUserLogOut(data.token));
     navigate("/", { replace: true });
@@ -52,13 +61,6 @@ const User = () => {
     setTimeout(() => setLoading(false), 3000);
   }, []);
 
-  // let slice_name = " ";
-  // for (let i = 0; i < data.checkforUser.name.length; i++) {
-  //   if (data.checkforUser.name[i] == " ") break;
-  //   else {
-  //     slice_name += data.checkforUser.name[i];
-  //   }
-  // }
   while (loading) {
     return (
       <AppLoading>
@@ -80,7 +82,7 @@ const User = () => {
         {data.token && (
           <div className="sliced-name">
             <span className="spa">Hi!</span>
-            <span className="span">{data.checkforUser.name}</span>
+            <span className="span">{user.name}</span>
           </div>
         )}
       </UserContainer>

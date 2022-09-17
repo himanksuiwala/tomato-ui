@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+
 import { getUserOrders, getStoreOrder } from "../features/store/userSlice";
 import useWindowDimensions from "../utilities/useWindowDimensions";
 var moment = require("moment");
@@ -18,127 +20,152 @@ const OrderItemContainer = () => {
 
   return (
     <Container>
-      {sorted_order.map((i) => {
-        return (
-          <OrderItem>
-            <div className="top">
-              {fetchedStore.length ? (
-                ""
-              ) : (
-                <div className="restro-name">
-                  {i.store_id && (
-                    <span className="name">{i.store_id.store_name}</span>
-                  )}
-                  {i.store_id && (
-                    <span className="locality"> {i.store_id.city}</span>
-                  )}
-                </div>
-              )}
-
-              <div className="content">
-                <div className="date">
-                  <div className="order-tag">
-                    <p>Ordered on</p>
+      {order.length == 0 ? (
+        <Empty>
+          <div>
+            <div>
+              <h1>You haven't ordered Anything</h1>
+            </div>
+            <div className="browse">
+              <h3>
+                Browse Restaurants <Link to={"/delivery"}>here</Link>
+              </h3>
+            </div>
+          </div>
+        </Empty>
+      ) : (
+        sorted_order.map((i) => {
+          return (
+            <OrderItem>
+              <div className="top">
+                {fetchedStore.length ? (
+                  ""
+                ) : (
+                  <div className="restro-name">
+                    {i.store_id && (
+                      <span className="name">{i.store_id.store_name}</span>
+                    )}
+                    {i.store_id && (
+                      <span className="locality"> {i.store_id.city}</span>
+                    )}
                   </div>
-                  <span>
-                    {" "}
-                    {moment(i.date, "YYYY-MM-DDTHH:mm:ss.SSS[Z]").format(
-                      "DD"
-                    )}{" "}
-                  </span>
-                  <span>
-                    {moment(i.date, "YYYY-MM-DDTHH:mm:ss.SSS[Z]").format("MMM")}{" "}
-                  </span>
-                  <span>
-                    {moment(i.date, "YYYY-MM-DDTHH:mm:ss.SSS[Z]").format(
-                      "YYYY"
-                    )}{" "}
-                  </span>
-                  {width > 455 && (
+                )}
+
+                <div className="content">
+                  <div className="date">
+                    <div className="order-tag">
+                      <p>Ordered on</p>
+                    </div>
                     <span>
-                      at{" "}
-                      {momentutc(i.date).tz("Asia/Kolkata").format("HH:mm a")}{" "}
+                      {" "}
+                      {moment(i.date, "YYYY-MM-DDTHH:mm:ss.SSS[Z]").format(
+                        "DD"
+                      )}{" "}
                     </span>
-                  )}
+                    <span>
+                      {moment(i.date, "YYYY-MM-DDTHH:mm:ss.SSS[Z]").format(
+                        "MMM"
+                      )}{" "}
+                    </span>
+                    <span>
+                      {moment(i.date, "YYYY-MM-DDTHH:mm:ss.SSS[Z]").format(
+                        "YYYY"
+                      )}{" "}
+                    </span>
+                    {width > 455 && (
+                      <span>
+                        at{" "}
+                        {momentutc(i.date).tz("Asia/Kolkata").format("HH:mm a")}{" "}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="bottom">
-              <div className="item-content">
-                {i.items.map((item) => {
-                  return (
-                    <div className="order-item-contents">
-                      <div className="order-item-name">
-                        <p>{item.item_id.name}</p>
-                      </div>
-                      <div>
-                        <div className="order-item-qty">
-                          <p>x {item.quantity}</p>
+              <div className="bottom">
+                <div className="item-content">
+                  {i.items.map((item) => {
+                    return (
+                      <div className="order-item-contents">
+                        <div className="order-item-name">
+                          <p>{item.item_id.name}</p>
+                        </div>
+                        <div>
+                          <div className="order-item-qty">
+                            <p>x {item.quantity}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
+                    );
+                  })}
+                </div>
 
-              {fetchedStore.length ? (
-                width > 455 && (
-                  <div className="address">
-                    <div className="add-tag">
-                      <div className="add-tag-add">Ordered by:</div>
-                      <span>{i.user_id.name}</span>
-                    </div>
-                  </div>
-                )
-              ) : (
-                <Address>
-                  {width > 455 && (
+                {fetchedStore.length ? (
+                  width > 455 && (
                     <div className="address">
                       <div className="add-tag">
-                        <span className="add-tag-add">Delivery Address:</span>
-                        <span>{i.delivery_address}</span>
+                        <div className="add-tag-add">Ordered by:</div>
+                        <span>{i.user_id.name}</span>
                       </div>
                     </div>
-                  )}
-                </Address>
-              )}
+                  )
+                ) : (
+                  <Address>
+                    {width > 455 && (
+                      <div className="address">
+                        <div className="add-tag">
+                          <span className="add-tag-add">Delivery Address:</span>
+                          <span>{i.delivery_address}</span>
+                        </div>
+                      </div>
+                    )}
+                  </Address>
+                )}
 
-              <div className="order-total">
-                <div className="order-payment">
-                  {width > 455 ? (
-                    <div className="order-payment-tag">
-                      <p>Mode of payment</p>
+                <div className="order-total">
+                  <div className="order-payment">
+                    {width > 455 ? (
+                      <div className="order-payment-tag">
+                        <p>Mode of payment</p>
+                      </div>
+                    ) : (
+                      <div className="order-payment-tag">
+                        <p>Payment</p>
+                      </div>
+                    )}
+                    <div className="payment-type">
+                      <span>{i.payment_type}</span>
                     </div>
-                  ) : (
-                    <div className="order-payment-tag">
-                      <p>Payment</p>
+                  </div>
+                  <div className="order-inner-container">
+                    <div className="order-total-tag">
+                      <p>Order Total</p>
                     </div>
-                  )}
-                  <div className="payment-type">
-                    <span>{i.payment_type}</span>
-                  </div>
-                </div>
-                <div className="order-inner-container">
-                  <div className="order-total-tag">
-                    <p>Order Total</p>
-                  </div>
-                  <div className="order-total-fig">
-                    <span> ₹ {i.order_total}</span>
+                    <div className="order-total-fig">
+                      <span> ₹ {i.order_total}</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="line">
-              <hr />
-            </div>
-          </OrderItem>
-        );
-      })}
+              <div className="line">
+                <hr />
+              </div>
+            </OrderItem>
+          );
+        })
+      )}
     </Container>
   );
 };
 const Address = styled.div``;
-
+const Empty = styled.div`
+  .browse {
+    margin-top: 13px;
+  }
+  display: flex;
+  padding-top: 10px;
+  justify-content: center;
+  margin-bottom: 200px;
+`;
 const OrderItem = styled.div`
   @media screen and (max-width: 450px) {
     font-size: 15.5px;
