@@ -170,7 +170,7 @@ const OrderItem = styled.div`
   @media screen and (max-width: 450px) {
     font-size: 15.5px;
     .order-payment {
-      margin: 8px 0px 7px 0px;
+      margin: 0px 0px 7px 0px;
     }
     .order-total {
       width: 31vw;
@@ -193,7 +193,7 @@ const OrderItem = styled.div`
       font-weight: 600;
     }
     .order-payment {
-      margin: 20px 1px 20px 1px;
+      margin: 0px 1px 20px 1px;
     }
     .order-total-tag {
       display: flex;

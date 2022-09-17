@@ -14,28 +14,45 @@ import {
 import MenuContainer from "../Components/MenuContainer";
 import OrderItemContainer from "./OrderItemContainer";
 import useWindowDimensions from "../utilities/useWindowDimensions";
+import axios from "axios";
 
 const StoreDashboard = () => {
   const dispatch = useDispatch();
   let defaultState = true;
   let navigate = useNavigate();
   const { height, width } = useWindowDimensions();
+  const [store, setStore] = useState("");
   const [ordersContainer, setOrdersContainer] = useState(false);
   const [accountContainer, SetaccountContainer] = useState(false);
   const [addItemInput, setAddItemInput] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const store_data = useSelector(getStoreData);
-
-  document.title = `Dashboard - ${
-    store_data && store_data.checkforStore.store_name
-  } 🍅`;
+  const fetched_from_store = useSelector(getStoreData);
+  document.title = `Tomato - Dashboard `;
+  let store_data;
   useBackListener(({ location }) => {
     navigate("/", { replace: true });
   });
+  const config = {
+    headers: {
+      Authorization: `Bearer ${fetched_from_store.token}`,
+    },
+  };
+  useEffect(() => {
+    axios.get("https://tomato-server.herokuapp.com/store/about", config).then(
+      (resp) => {
+        setStore(resp.data);
+        store_data = resp.data;
+      },
+      (e) => console.log(e)
+    );
+    dispatch(fetchAsyncStoreOrders(config));
+    dispatch(fetchAsyncStoreMenu(fetched_from_store._id));
+    setTimeout(() => setLoading(false), 2500);
+  }, []);
 
   const logOutHandler = async (e) => {
-    dispatch(fetchAsyncStoreLogout(store_data.token));
+    dispatch(fetchAsyncStoreLogout(fetched_from_store.token));
     navigate("/", { replace: true });
   };
   const OrderclickHandler = async (e) => {
@@ -54,16 +71,6 @@ const StoreDashboard = () => {
       addItemInput && setAddItemInput(false);
     }
   };
-  const config = {
-    headers: {
-      Authorization: `Bearer ${store_data.token}`,
-    },
-  };
-  useEffect(() => {
-    dispatch(fetchAsyncStoreOrders(config));
-    dispatch(fetchAsyncStoreMenu(store_data.checkforStore._id));
-    setTimeout(() => setLoading(false), 2500);
-  }, []);
 
   const fromChild = (data) => {
     if (data == "cancel") {
@@ -89,15 +96,13 @@ const StoreDashboard = () => {
         </div>
       </Header>
       <UserContainer>
-        {store_data.token && (
+        {fetched_from_store.token && (
           <div className="sliced-name">
             {width > 455 ? (
               <>
                 <span className="spa">Manage your </span>
 
-                <span className="span">
-                  {store_data.checkforStore.store_name}
-                </span>
+                <span className="span">{store.store_name}</span>
               </>
             ) : (
               <>
@@ -127,7 +132,10 @@ const StoreDashboard = () => {
               <h2 className="add-item" onClick={AddItemHandler}>
                 {">"}Add Item
               </h2>
-              <MenuContainer location={"store"} token={store_data.token} />
+              <MenuContainer
+                location={"store"}
+                token={fetched_from_store.token}
+              />
             </AccountContainer>
           )}
         </Body>

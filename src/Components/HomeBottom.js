@@ -24,7 +24,7 @@ const HomeBottom = () => {
         </Content>
         <Link to={"/store_auth"}>
           <Explore>
-            <h1>Add Restaurant</h1>
+            <h1>Add Your Restaurant</h1>
           </Explore>
         </Link>
       </StoreContainer>

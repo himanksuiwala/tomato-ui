@@ -4,9 +4,11 @@ import $ from "jquery";
 import { useNavigate } from "react-router-dom";
 import {
   fetchAsyncStoreLogin,
+  fetchAsyncStoreRegister,
   getStoreData,
 } from "../features/store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 const StoreLogin = () => {
   const BACKDROP_IMAGE_URL = `https://ik.imagekit.io/1aafk6gx3bk/louis-hansel-wVoP_Q2Bg_A-unsplash_xDnXz45aA.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1659644493814`;
   const fetched_store = useSelector(getStoreData);
@@ -43,20 +45,28 @@ const StoreLogin = () => {
   const takeawayRadioButtonHandle = (e) => {
     setTakeaway(e.target.value);
   };
+  const registerStore = async () => {
+    const response = await axios
+      .post(`http://localhost:3001/store`, store_reg_obj)
+      .catch((e) => {
+        console.log(e);
+      });
+  };
   const formSubmitHandle = (e) => {
     e.preventDefault();
-    alert("pr");
-    // dispatch(fetchAsyncStoreRegister(store_reg_obj));
-    setSeating("seating_true");
-    setTakeaway("takeaway_true");
-    setDelivery("food_delivery_true");
-    setRest_mail("");
-    setPass("");
-    setRest_name("");
-    setRest_add("");
-    setRest_city("");
-    setRest_contact("");
-    setRest_cuisine("");
+    // registerStore();
+    dispatch(fetchAsyncStoreRegister(store_reg_obj));
+    // alert("pressed")
+    // setSeating("seating_true");
+    // setTakeaway("takeaway_true");
+    // setDelivery("food_delivery_true");
+    // setRest_mail("");
+    // setPass("");
+    // setRest_name("");
+    // setRest_add("");
+    // setRest_city("");
+    // setRest_contact("");
+    // setRest_cuisine("");
   };
   const ProceedHandler = (e) => {
     setForm(false);
@@ -169,175 +179,173 @@ const StoreLogin = () => {
                   </div>
                 </FormContainer>
               ) : (
-                <NewStoreDetail>
-                  <RegisterFormContainer>
-                    <form onSubmit={formSubmitHandle} className="form">
+                <RegisterFormContainer>
+                  <form onSubmit={formSubmitHandle} className="form">
+                    <div className="input-container">
+                      <div className="input-tag">
+                        <p>Restaurant name</p>
+                      </div>
+                      <input
+                        className="text-field"
+                        type="text"
+                        required
+                        value={rest_name}
+                        onChange={(e) => {
+                          setRest_name(e.target.value);
+                        }}
+                        placeholder="Store Name"
+                      />
+                    </div>
+                    <div className="input-container">
+                      <div className="input-tag">
+                        <p>Address</p>
+                      </div>
+                      <input
+                        className="text-field"
+                        type="text"
+                        value={rest_add}
+                        onChange={(e) => {
+                          setRest_add(e.target.value);
+                        }}
+                        required
+                        placeholder="Address"
+                      />
+                    </div>
+                    <div className="input-container">
+                      <div className="input-tag">
+                        <p>City</p>
+                      </div>
+                      <input
+                        type="text"
+                        required
+                        value={rest_city}
+                        onChange={(e) => {
+                          setRest_city(e.target.value);
+                        }}
+                        className="text-field"
+                        placeholder="Ex- New Delhi"
+                      />
+                    </div>
+                    <div className="input-container">
+                      <div className="input-tag">
+                        <p>Contact Number </p>
+                      </div>
+                      <input
+                        type="text"
+                        required
+                        value={rest_contact}
+                        onChange={(e) => {
+                          setRest_contact(e.target.value);
+                        }}
+                        className="text-field"
+                        placeholder="Ex- 1234567890"
+                      />
+                    </div>
+                    <div className="input-container">
+                      <div className="input-tag">
+                        <p>Cusine Category </p>
+                      </div>
+                      <input
+                        type="text"
+                        required
+                        value={rest_cuisine}
+                        onChange={(e) => {
+                          setRest_cuisine(e.target.value);
+                        }}
+                        className="text-field"
+                        placeholder="Ex- Thai,Chinese"
+                      />
+                    </div>
+                    <div className="radio-button-container">
                       <div className="input-container">
                         <div className="input-tag">
-                          <p>Restaurant name</p>
+                          <p>Seating</p>
                         </div>
-                        <input
-                          className="text-field"
-                          type="text"
-                          required
-                          value={rest_name}
-                          onChange={(e) => {
-                            setRest_name(e.target.value);
-                          }}
-                          placeholder="Store Name"
-                        />
+                        <div className="seating">
+                          <div>
+                            <input
+                              type="radio"
+                              value="seating_true"
+                              onClick={seatRadioButtonHandle}
+                              checked={seating === "seating_true"}
+                              name="seating_true"
+                            />{" "}
+                            Available
+                          </div>
+                          <div>
+                            <input
+                              type="radio"
+                              value="seating_false"
+                              checked={seating === "seating_false"}
+                              onClick={seatRadioButtonHandle}
+                              name="seating_false"
+                            />{" "}
+                            Not Available
+                          </div>
+                        </div>
                       </div>
+                      {/* ///---HomeDelivery---/// */}
                       <div className="input-container">
                         <div className="input-tag">
-                          <p>Restaurant Address</p>
+                          <p>Delivery </p>
                         </div>
-                        <input
-                          className="text-field"
-                          type="text"
-                          value={rest_add}
-                          onChange={(e) => {
-                            setRest_add(e.target.value);
-                          }}
-                          required
-                          placeholder="Address"
-                        />
+                        <div className="seating">
+                          <div>
+                            <input
+                              type="radio"
+                              onClick={foodDeliveyRadioButtonHandle}
+                              checked={delivery == "food_delivery_true"}
+                              value="food_delivery_true"
+                              name="food_delivery_true"
+                            />{" "}
+                            Available
+                          </div>
+                          <div>
+                            <input
+                              type="radio"
+                              onClick={foodDeliveyRadioButtonHandle}
+                              checked={delivery == "food_delivery_false"}
+                              value="food_delivery_false"
+                              name="food_delivery_false"
+                            />{" "}
+                            Not Available
+                          </div>
+                        </div>
                       </div>
+                      {/* ///---Takeaway---/// */}
                       <div className="input-container">
                         <div className="input-tag">
-                          <p>City</p>
+                          <p>Takeaway </p>
                         </div>
-                        <input
-                          type="text"
-                          required
-                          value={rest_city}
-                          onChange={(e) => {
-                            setRest_city(e.target.value);
-                          }}
-                          className="text-field"
-                          placeholder="Ex- New Delhi"
-                        />
-                      </div>
-                      <div className="input-container">
-                        <div className="input-tag">
-                          <p>Contact Number </p>
-                        </div>
-                        <input
-                          type="text"
-                          required
-                          value={rest_contact}
-                          onChange={(e) => {
-                            setRest_contact(e.target.value);
-                          }}
-                          className="text-field"
-                          placeholder="Ex- 1234567890"
-                        />
-                      </div>
-                      <div className="input-container">
-                        <div className="input-tag">
-                          <p>Cusine Category </p>
-                        </div>
-                        <input
-                          type="text"
-                          required
-                          value={rest_cuisine}
-                          onChange={(e) => {
-                            setRest_cuisine(e.target.value);
-                          }}
-                          className="text-field"
-                          placeholder="Ex- Thai,Chinese"
-                        />
-                      </div>
-                      <div className="radio-button-container">
-                        <div className="input-container">
-                          <div className="input-tag">
-                            <p>Seating</p>
+                        <div className="seating">
+                          <div>
+                            <input
+                              type="radio"
+                              onClick={takeawayRadioButtonHandle}
+                              checked={takeaway == "takeaway_true"}
+                              value="takeaway_true"
+                              name="takeaway_true"
+                            />{" "}
+                            Available
                           </div>
-                          <div className="seating">
-                            <div>
-                              <input
-                                type="radio"
-                                value="seating_true"
-                                onClick={seatRadioButtonHandle}
-                                checked={seating === "seating_true"}
-                                name="seating_true"
-                              />{" "}
-                              Available
-                            </div>
-                            <div>
-                              <input
-                                type="radio"
-                                value="seating_false"
-                                checked={seating === "seating_false"}
-                                onClick={seatRadioButtonHandle}
-                                name="seating_false"
-                              />{" "}
-                              Not Available
-                            </div>
-                          </div>
-                        </div>
-                        {/* ///---HomeDelivery---/// */}
-                        <div className="input-container">
-                          <div className="input-tag">
-                            <p>Food Delivery </p>
-                          </div>
-                          <div className="seating">
-                            <div>
-                              <input
-                                type="radio"
-                                onClick={foodDeliveyRadioButtonHandle}
-                                checked={delivery == "food_delivery_true"}
-                                value="food_delivery_true"
-                                name="food_delivery_true"
-                              />{" "}
-                              Available
-                            </div>
-                            <div>
-                              <input
-                                type="radio"
-                                onClick={foodDeliveyRadioButtonHandle}
-                                checked={delivery == "food_delivery_false"}
-                                value="food_delivery_false"
-                                name="food_delivery_false"
-                              />{" "}
-                              Not Available
-                            </div>
-                          </div>
-                        </div>
-                        {/* ///---Takeaway---/// */}
-                        <div className="input-container">
-                          <div className="input-tag">
-                            <p>Takeaway </p>
-                          </div>
-                          <div className="seating">
-                            <div>
-                              <input
-                                type="radio"
-                                onClick={takeawayRadioButtonHandle}
-                                checked={takeaway == "takeaway_true"}
-                                value="takeaway_true"
-                                name="takeaway_true"
-                              />{" "}
-                              Available
-                            </div>
-                            <div>
-                              <input
-                                type="radio"
-                                onClick={takeawayRadioButtonHandle}
-                                checked={takeaway == "takeaway_false"}
-                                value="takeaway_false"
-                                name="takeaway_false"
-                              />{" "}
-                              Not Available
-                            </div>
+                          <div>
+                            <input
+                              type="radio"
+                              onClick={takeawayRadioButtonHandle}
+                              checked={takeaway == "takeaway_false"}
+                              value="takeaway_false"
+                              name="takeaway_false"
+                            />{" "}
+                            Not Available
                           </div>
                         </div>
                       </div>
-                      <div className="button-container">
-                        <button>Register</button>
-                      </div>
-                    </form>
-                  </RegisterFormContainer>
-                </NewStoreDetail>
+                    </div>
+                    <div className="button-container">
+                      <button>Register</button>
+                    </div>
+                  </form>
+                </RegisterFormContainer>
               )}
             </div>
           </HeroHeader>
@@ -346,10 +354,124 @@ const StoreLogin = () => {
     </>
   );
 };
+
 const RegisterFormContainer = styled.div`
+  .login-header {
+    color: black;
+    margin-bottom: 50px;
+  }
+  @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+  ${"" /* height: 500px; */}
+  .login-page {
+    width: 360px;
+    padding: 8% 0 0;
+    margin: auto;
+  }
+  .form {
+    border-radius: 20px;
+    position: relative;
+    z-index: 1;
+    background: #ffffff;
+    max-width: 900px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  }
+  .form input {
+    font-family: "Roboto", sans-serif;
+    border-radius: 20px;
+    outline: 0;
+    background: #f2f2f2;
+    border: 0;
+    ${"" /* margin: 0 0 15px; */}
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  .form button {
+    border-radius: 20px;
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #090b13;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #ffffff;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+  }
+  .form button:hover,
+  .form button:active,
+  .form button:focus {
+    ${"" /* background: #43a047; */}
+    background: #090b13;
+  }
+  .form .message {
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 12px;
+  }
+  .form .message a {
+    ${"" /* color: #4caf50; */}
+    color: #090b13;
+    text-decoration: none;
+  }
+  .form .register-form {
+    display: none;
+  }
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  .container:before,
+  .container:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+  .container .info {
+    margin: 50px auto;
+    text-align: center;
+  }
+  .container .info h1 {
+    margin: 0 0 15px;
+    padding: 0;
+    font-size: 36px;
+    font-weight: 300;
+    color: #1a1a1a;
+  }
+  .container .info span {
+    color: #4d4d4d;
+    font-size: 12px;
+  }
+  .container .info span a {
+    color: #000000;
+    text-decoration: none;
+  }
+  .container .info span .fa {
+    color: #ef3b3a;
+  }
+  body {
+    background: #76b852; /* fallback for old browsers */
+    background: rgb(141, 194, 111);
+    background: linear-gradient(
+      90deg,
+      rgba(141, 194, 111, 1) 0%,
+      rgba(118, 184, 82, 1) 50%
+    );
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
   height: 490px;
   width: 490px;
-  padding: 15px 10px 10px 10px;
+  padding: 0px 10px 10px 10px;
   .button-container {
     text-align: center;
     padding-top: 13px;
@@ -376,22 +498,37 @@ const RegisterFormContainer = styled.div`
     ${"" /* background: #43a047; */}
     background: #090b13;
   }
-  .seating {
-    width: 250px;
-    display: flex;
-    font-size: 18px;
-    font-weight: 650;
-    justify-content: space-between;
+  @media screen and (max-width: 450px) {
+    width: 80vw;
+    font-size: 20px;
+    .seating {
+      display: flex;
+      justify-content: space-evenly;
+    }
+    .input-tag {
+      margin-left: 10px;
+      font-weight: 600;
+    }
   }
-  .input-container {
-    display: flex;
-    justify-content: space-between;
-    font-size: 22px;
-    font-weight: 700;
-    margin: 20px 8px 20px 8px;
-  }
-  .text-field {
-    border-radius: 5px;
+
+  @media screen and (min-width: 455px) {
+    .seating {
+      width: 250px;
+      display: flex;
+      font-size: 18px;
+      font-weight: 650;
+      justify-content: space-between;
+    }
+    .input-container {
+      display: flex;
+      justify-content: space-between;
+      font-size: 22px;
+      font-weight: 700;
+      margin: 0px 8px 20px 8px;
+    }
+    .text-field {
+      border-radius: 5px;
+    }
   }
 `;
 const NewStoreDetail = styled.div`
@@ -400,19 +537,8 @@ const NewStoreDetail = styled.div`
   border-radius: 15px;
 `;
 const HeroComponent = styled.div`
-  color: white;
-  @media screen and (min-width: 601px) {
-    .header {
-    }
-    h1 {
-      font-size: 60px;
-    }
-  }
-  @media screen and (max-width: 600px) {
-    h1 {
-      font-size: 50px;
-    }
-  }
+  ${"" /* color: white; */}
+
   .header {
     h1 {
       font-weight: 800;
@@ -423,8 +549,10 @@ const HeroComponent = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
   }
-  .hero {
+  ${
+    "" /* .hero {
     height: 90.8vh;
+  } */
   }
   img {
     width: 100%;
