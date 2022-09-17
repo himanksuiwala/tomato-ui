@@ -347,13 +347,16 @@ const CartHeader = styled.div`
   margin-top: 50px;
 `;
 const Container = styled.div`
+
   font-family: "Inter", sans-serif;
   @media screen and (max-width: 450px) {
     margin: 0 calc(2vw + 9px);
+    margin-bottom:50px;
   }
 
   @media screen and (min-width: 455px) {
     margin: 0 calc(12vw + 10px);
+    margin-bottom:250px;
   }
 `;
 export default Cart;
