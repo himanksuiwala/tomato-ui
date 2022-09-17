@@ -52,13 +52,13 @@ const User = () => {
     setTimeout(() => setLoading(false), 3000);
   }, []);
 
-  let slice_name = " ";
-  for (let i = 0; i < data.checkforUser.name.length; i++) {
-    if (data.checkforUser.name[i] == " ") break;
-    else {
-      slice_name += data.checkforUser.name[i];
-    }
-  }
+  // let slice_name = " ";
+  // for (let i = 0; i < data.checkforUser.name.length; i++) {
+  //   if (data.checkforUser.name[i] == " ") break;
+  //   else {
+  //     slice_name += data.checkforUser.name[i];
+  //   }
+  // }
   while (loading) {
     return (
       <AppLoading>
