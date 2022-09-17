@@ -6,17 +6,20 @@ import { getCartitems, reset } from "../features/store/cartSlice";
 import { getStoreData } from "../features/store/storeSlice";
 import { getUserInfo } from "../features/store/userSlice";
 import Spinner from "react-spinkit";
+import useWindowDimensions from "../utilities/useWindowDimensions";
 <style>
   @import
   url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
 </style>;
 const Cart = () => {
+  const { height, width } = useWindowDimensions();
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [payment, setPayment] = useState();
   const dispatch = useDispatch();
   const data = useSelector(getCartitems);
   const token = useSelector(getUserInfo);
+  document.title = "Tomato - Cart";
   var order = {};
   var itemlist = [];
   let sum = 0;
@@ -139,45 +142,59 @@ const Cart = () => {
             <div className="payment">
               <h3>Mode of Payment</h3>
             </div>
-            <div className="payment-style">
-              <input
-                onClick={paymentHandler}
-                type="radio"
-                id="cash"
-                name="fav_language"
-                value="Cash"
-              />
-                <label for="cash">Cash</label>
-            </div>
-            <div className="payment-style">
-              <input
-                onClick={paymentHandler}
-                type="radio"
-                id="cash"
-                name="fav_language"
-                value="Credit/Debit Card"
-              />
-                <label for="cash">Credit/Debit Card</label>
-            </div>
-            <div className="payment-style">
-              <input
-                onClick={paymentHandler}
-                type="radio"
-                id="cash"
-                name="fav_language"
-                value="UPI"
-              />
-                <label for="cash">UPI</label>
-            </div>
-            <div className="payment-style">
-              <input
-                onClick={paymentHandler}
-                type="radio"
-                id="cash"
-                name="fav_language"
-                value="cash"
-              />
-                <label for="cash">Paytm</label>
+            <div className="payment-container">
+              <div className="payment-style">
+                <input
+                  onClick={paymentHandler}
+                  type="radio"
+                  id="cash"
+                  name="fav_language"
+                  value="Cash"
+                />
+                 {" "}
+                <label className="cash" for="cash">
+                  Cash
+                </label>
+              </div>
+              <div className="payment-style">
+                <input
+                  onClick={paymentHandler}
+                  type="radio"
+                  id="cash"
+                  name="fav_language"
+                  value="Credit/Debit Card"
+                />
+                 {" "}
+                <label className="cash" for="cash">
+                  Credit/Debit Card
+                </label>
+              </div>
+              <div className="payment-style">
+                <input
+                  onClick={paymentHandler}
+                  type="radio"
+                  id="cash"
+                  name="fav_language"
+                  value="UPI"
+                />
+                 {" "}
+                <label className="cash" for="cash">
+                  UPI
+                </label>
+              </div>
+              <div className="payment-style">
+                <input
+                  onClick={paymentHandler}
+                  type="radio"
+                  id="cash"
+                  name="fav_language"
+                  value="cash"
+                />
+                 {" "}
+                <label className="cash" for="cash">
+                  Paytm
+                </label>
+              </div>
             </div>
 
             <br />
@@ -192,7 +209,7 @@ const Cart = () => {
               </div>
             </TotalCart>
             <PlaceOrder>
-              <button onClick={submitHandler}>
+              <button className="btn" onClick={submitHandler}>
                 {" "}
                 <h2>Place Order</h2>
               </button>
@@ -222,21 +239,60 @@ const ClearCart = styled.div`
   font-size: 25px;
   text-decoration: underline;
   margin-top: 70px;
+  @media screen and (max-width: 450px) {
+    margin-right: 30px;
+  }
 `;
 
 const CartSubmit = styled.div``;
 const PlaceOrder = styled.div`
-  padding-left: 40px;
+  @media screen and (min-width: 455px) {
+    padding-left: 40px;
+  }
+  @media screen and (max-width: 450px) {
+    display: flex;
+    justify-content: center;
+    .btn {
+    border-radius:7px;
+    width:50vw;
+    height:40px;
+  }
+  }
+
+  margin-bottom: 30px;
 `;
 const Payment = styled.div`
   margin-top: 18px;
   .payment-style {
     margin: 5px 1px 5px 1px;
   }
+
+  @media screen and (max-width: 450px) {
+    margin-top: 35px;
+    .payment {
+      font-size: 22px;
+    }
+    .payment-container {
+      display: flex;
+      padding-left: 10px;
+      padding-top: 7px;
+      justify-content: space-between;
+    }
+    .cash {
+      margin-left: -5px;
+    }
+  }
 `;
 const BottomContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+  @media screen and (min-width: 455px) {
+    display: flex;
+    justify-content: space-between;
+  }
+  @media screen and (max-width: 450px) {
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+  }
 `;
 const EmptyCart = styled.div`
   margin-left: 15px;
@@ -244,12 +300,25 @@ const EmptyCart = styled.div`
 
 const TotalCart = styled.div`
   margin: 18px 20px 30px 0px;
-  ${"" /* width: 280px; */}
-  float: right;
+
+  @media screen and (min-width: 455px) {
+    float: right;
+    .total {
+      margin: -6px 0px 0px 10px;
+      font-size: 20px;
+    }
+  }
   display: flex;
-  .total {
-    margin: -6px 0px 0px 10px;
-    font-size: 20px;
+  @media screen and (max-width: 450px) {
+    .grand-total {
+      font-size: 22px;
+      margin-left: 4px;
+      padding-top: 7px;
+    }
+    .total {
+      margin-left: 20px;
+      font-size: 24px;
+    }
   }
 `;
 
@@ -260,13 +329,15 @@ const CartItem = styled.div`
 `;
 const CartitemContainer = styled.div`
   margin-top: 23px;
-  width:40vw;
   }
 `;
 const CartHeader = styled.div`
   display: flex;
   justify-content: space-between;
 
+  @media screen and (max-width: 450px) {
+    font-size: 50px;
+  }
   .clear {
     font-size: 25px;
     text-decoration: underline;
@@ -274,10 +345,14 @@ const CartHeader = styled.div`
   }
   font-size: 70px;
   margin-top: 50px;
-  font-family: "Inter", sans-serif;
 `;
 const Container = styled.div`
-  @media screen and (min-width: 601px) {
+  font-family: "Inter", sans-serif;
+  @media screen and (max-width: 450px) {
+    margin: 0 calc(2vw + 9px);
+  }
+
+  @media screen and (min-width: 455px) {
     margin: 0 calc(12vw + 10px);
   }
 `;
