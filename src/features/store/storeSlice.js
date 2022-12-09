@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const SERVER_URL = "https://tomato-server.herokuapp.com";
+// const SERVER_URL = "https://tomato-server.herokuapp.com";
+// const SERVER_URL = "http://localhost:3001";
+const SERVER_URL = "https://plum-tired-shark.cyclic.app";
 
 export const fetchAsyncStores = createAsyncThunk(
   "stores/allStores",
@@ -20,7 +22,12 @@ export const fetchAsyncStoreData = createAsyncThunk(
 export const fetchAsyncStoreMenu = createAsyncThunk(
   "store/menu",
   async (id) => {
-    const response = await axios.get(`${SERVER_URL}/storeMenu/${id}`);
+    const response = await axios
+      .get(`${SERVER_URL}/storeMenu/${id}`)
+      .catch((e) => {
+        console.log(e);
+      });
+    console.log(response.data);
     return response.data;
   }
 );

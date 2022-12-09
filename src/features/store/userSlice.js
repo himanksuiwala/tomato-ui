@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const SERVER_URL = "https://tomato-server.herokuapp.com";
+// const SERVER_URL = "https://tomato-server.herokuapp.com";
+const SERVER_URL = "https://plum-tired-shark.cyclic.app";
+// const SERVER_URL = "http://localhost:3001";
 
 export const fetchAsyncUserLogin = createAsyncThunk(
   "user/Login",
@@ -66,10 +68,7 @@ export const fetchAsyncStoreLogout = createAsyncThunk(
 export const fetchAsyncStoreRegister = createAsyncThunk(
   "store/Registers",
   async (config) => {
-    const response = await axios.post(`${SERVER_URL}/store`, config, {
-      headers: { "Content-Type": "application/json" },
-      withCredentials: true,
-    });
+    const response = await axios.post(`${SERVER_URL}/store`, config);
     return response.data;
   }
 );
