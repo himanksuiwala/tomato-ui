@@ -54,7 +54,7 @@ const Cart = () => {
       payment
         ? axios
             .post(
-              `https://tomato-server.herokuapp.com/cartOrder`,
+              `https://plum-tired-shark.cyclic.app/cartOrder`,
               order,
               config
             )

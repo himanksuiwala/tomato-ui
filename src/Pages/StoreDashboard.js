@@ -38,7 +38,7 @@ const StoreDashboard = () => {
     },
   };
   useEffect(() => {
-    axios.get("https://tomato-server.herokuapp.com/store/about", config).then(
+    axios.get("https://plum-tired-shark.cyclic.app/store/about", config).then(
       (resp) => {
         setStore(resp.data);
         dispatch(fetchAsyncStoreMenu(resp.data._id));

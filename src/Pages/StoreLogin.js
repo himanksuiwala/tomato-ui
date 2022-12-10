@@ -47,7 +47,7 @@ const StoreLogin = () => {
   };
   const registerStore = async () => {
     const response = await axios
-      .post(`http://localhost:3001/store`, store_reg_obj)
+      .post(`https://plum-tired-shark.cyclic.app/store`, store_reg_obj)
       .catch((e) => {
         console.log(e);
       });

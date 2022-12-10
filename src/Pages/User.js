@@ -34,7 +34,7 @@ const User = () => {
     navigate("/", { replace: true });
   });
   useEffect(() => {
-    axios.get("https://tomato-server.herokuapp.com/user/about", config).then(
+    axios.get("https://plum-tired-shark.cyclic.app/user/about", config).then(
       (resp) => {
         setUser(resp.data);
       },
